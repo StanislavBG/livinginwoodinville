@@ -1,35 +1,45 @@
 // Configuration for different hosting environments
-const CONFIG = {
-    // Base path for GitHub Pages (will be '/livinginwoodenville' in production)
-    basePath: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-        ? '' 
-        : '/livinginwoodenville',
+const CONFIG = (() => {
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isGitHubPages = window.location.hostname.includes('github.io');
     
-    // API endpoints
-    templates: {
-        base: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? '/templates/'
-            : '/livinginwoodenville/templates/'
-    },
-    
-    data: {
-        base: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? '/data/'
-            : '/livinginwoodenville/data/'
-    },
-    
-    pages: {
-        base: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? '/pages/'
-            : '/livinginwoodenville/pages/'
-    },
-    
-    images: {
-        base: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? '/images/'
-            : '/livinginwoodenville/images/'
+    // For GitHub Pages, detect the actual base path from pathname
+    let basePath = '';
+    if (isGitHubPages) {
+        const pathSegments = window.location.pathname.split('/');
+        if (pathSegments[1] === 'livinginwoodenville') {
+            basePath = '/livinginwoodenville';
+        }
     }
-};
+    
+    return {
+        basePath: basePath,
+        
+        // API endpoints with proper base path detection
+        templates: {
+            base: isLocal ? '/templates/' : `${basePath}/templates/`
+        },
+        
+        data: {
+            base: isLocal ? '/data/' : `${basePath}/data/`
+        },
+        
+        pages: {
+            base: isLocal ? '/pages/' : `${basePath}/pages/`
+        },
+        
+        images: {
+            base: isLocal ? '/images/' : `${basePath}/images/`
+        },
+        
+        // Debug info
+        environment: isLocal ? 'local' : (isGitHubPages ? 'github-pages' : 'unknown'),
+        detectedPath: window.location.pathname
+    };
+})();
 
 // Export for use in other modules
 window.CONFIG = CONFIG;
+
+// Debug logging
+console.log('CONFIG loaded:', CONFIG);
