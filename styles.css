@@ -69,6 +69,25 @@ body {
     align-items: center;
 }
 
+/* Mobile Navigation Toggle */
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: auto;
+    margin-right: 1rem;
+    transition: var(--transition);
+}
+
+.mobile-nav-toggle:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
 .header-content {
     display: flex;
     justify-content: space-between;
@@ -118,6 +137,80 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: transform 0.3s ease;
+}
+
+/* Mobile Navigation Overlay */
+.mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Mobile Navigation States */
+@media (max-width: 768px) {
+    .side-nav {
+        transform: translateX(-100%);
+        width: 280px;
+        z-index: 1002;
+    }
+    
+    .side-nav.open {
+        transform: translateX(0);
+    }
+    
+    .mobile-nav-overlay.open {
+        display: block;
+    }
+    
+    .mobile-nav-toggle {
+        display: block;
+    }
+    
+    /* Mobile-specific tree navigation improvements */
+    .tree-node {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    
+    .tree-node.level-2 {
+        padding-left: 1.5rem;
+    }
+    
+    .tree-node.level-3 {
+        padding-left: 2rem;
+    }
+    
+    .tree-children .tree-children .tree-children .tree-link {
+        padding-left: 3rem;
+    }
+    
+    /* Mobile welcome content improvements */
+    .welcome-content {
+        padding: 1rem;
+    }
+    
+    .welcome-content h1 {
+        font-size: 2rem;
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+    }
+    
+    .getting-started {
+        padding: 1rem;
+    }
 }
 
 
@@ -884,6 +977,26 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: left 0.3s ease;
+}
+
+/* Mobile Main Content Layout */
+@media (max-width: 768px) {
+    .main-content-area,
+    .main-content {
+        left: 0;
+        top: 0; /* Hide header on mobile */
+        height: 100vh;
+    }
+    
+    .header {
+        display: none; /* Hide header on mobile */
+    }
+    
+    .side-nav {
+        top: 0; /* Full height on mobile */
+        height: 100vh;
+    }
 }
 
 /* Park pages need no scroll */

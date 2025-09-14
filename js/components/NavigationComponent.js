@@ -65,29 +65,73 @@ class NavigationComponent {
     }
 
     setupEventListeners() {
-        // Mobile overlay toggle
-        const navOverlayToggle = document.getElementById('navOverlayToggle');
+        // Mobile navigation toggle
+        const mobileNavToggle = document.getElementById('mobileNavToggle');
         const sideNav = document.getElementById('sideNav');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
         
-        if (navOverlayToggle && sideNav) {
-            navOverlayToggle.addEventListener('click', () => {
-                sideNav.classList.toggle('open');
+        if (mobileNavToggle && sideNav) {
+            mobileNavToggle.addEventListener('click', () => {
+                this.toggleMobileNav();
+            });
+        }
+
+        // Close mobile menu when clicking overlay
+        if (mobileNavOverlay) {
+            mobileNavOverlay.addEventListener('click', () => {
+                this.closeMobileNav();
             });
         }
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.side-nav') && !e.target.closest('.nav-overlay-toggle')) {
-                sideNav.classList.remove('open');
+            if (!e.target.closest('.side-nav') && !e.target.closest('.mobile-nav-toggle')) {
+                this.closeMobileNav();
             }
         });
 
         // Close mobile menu on window resize
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
-                sideNav.classList.remove('open');
+                this.closeMobileNav();
             }
         });
+    }
+
+    toggleMobileNav() {
+        const sideNav = document.getElementById('sideNav');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        
+        if (sideNav && mobileNavOverlay) {
+            const isOpen = sideNav.classList.contains('open');
+            if (isOpen) {
+                this.closeMobileNav();
+            } else {
+                this.openMobileNav();
+            }
+        }
+    }
+
+    openMobileNav() {
+        const sideNav = document.getElementById('sideNav');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        
+        if (sideNav && mobileNavOverlay) {
+            sideNav.classList.add('open');
+            mobileNavOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+    }
+
+    closeMobileNav() {
+        const sideNav = document.getElementById('sideNav');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        
+        if (sideNav && mobileNavOverlay) {
+            sideNav.classList.remove('open');
+            mobileNavOverlay.classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
     }
 
     setupTreeNavigation() {
@@ -142,6 +186,8 @@ class NavigationComponent {
                 const href = treeLink.getAttribute('href');
                 console.log('NavigationComponent: Tree link clicked:', href);
                 this.navigateToPage(href);
+                // Close mobile navigation after selection
+                this.closeMobileNav();
                 return;
             }
         });
