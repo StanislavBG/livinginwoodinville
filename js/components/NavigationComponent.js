@@ -640,7 +640,12 @@ class NavigationComponent {
                     const feature = data.features[0];
                     const coords = {
                         lat: feature.center[1],
-                        lng: feature.center[0]
+                        lng: feature.center[0],
+                        // Add address quality information
+                        quality: this.assessAddressQuality(feature),
+                        confidence: feature.relevance || 0,
+                        placeName: feature.place_name || cleanAddress,
+                        context: feature.context || []
                     };
                     
                     // Cache the result
@@ -664,6 +669,100 @@ class NavigationComponent {
             console.error('NavigationComponent: Mapbox geocoding error:', error);
             return null;
         }
+    }
+
+    assessAddressQuality(feature) {
+        // Assess address quality based on Mapbox geocoding response
+        const relevance = feature.relevance || 0;
+        const accuracy = feature.properties?.accuracy || 'unknown';
+        const addressType = feature.place_type?.[0] || 'unknown';
+        
+        // Quality scoring based on relevance and accuracy
+        let quality = 'low';
+        let score = 0;
+        
+        // Relevance score (0-1)
+        score += relevance * 0.4;
+        
+        // Accuracy score based on address type
+        const accuracyScores = {
+            'address': 0.4,      // Exact address
+            'poi': 0.3,          // Point of interest
+            'place': 0.2,        // City/neighborhood
+            'region': 0.1,       // State/region
+            'country': 0.05      // Country
+        };
+        score += accuracyScores[addressType] || 0.1;
+        
+        // Additional quality indicators
+        if (feature.properties?.address) score += 0.1;  // Has street address
+        if (feature.properties?.postcode) score += 0.1; // Has postal code
+        if (feature.context?.some(ctx => ctx.id?.startsWith('place'))) score += 0.1; // Has city context
+        
+        // Determine quality level
+        if (score >= 0.8) quality = 'high';
+        else if (score >= 0.5) quality = 'medium';
+        else quality = 'low';
+        
+        console.log('NavigationComponent: Address quality assessment:', {
+            address: feature.place_name,
+            relevance,
+            accuracy,
+            addressType,
+            score: score.toFixed(2),
+            quality
+        });
+        
+        return {
+            level: quality,
+            score: Math.round(score * 100),
+            details: {
+                relevance,
+                accuracy,
+                addressType,
+                hasStreetAddress: !!feature.properties?.address,
+                hasPostalCode: !!feature.properties?.postcode
+            }
+        };
+    }
+
+    createPinMarker(type, quality = 'medium') {
+        // Create a pin marker element with quality-based coloring
+        const markerEl = document.createElement('div');
+        markerEl.className = `pin-marker pin-${type} pin-quality-${quality}`;
+        
+        // Define colors based on quality
+        const qualityColors = {
+            high: '#22c55e',    // Green
+            medium: '#f59e0b',  // Amber
+            low: '#ef4444'      // Red
+        };
+        
+        const typeIcons = {
+            destination: '📍',  // Destination pin
+            user: '🏠'          // User location house
+        };
+        
+        const color = qualityColors[quality] || qualityColors.medium;
+        const icon = typeIcons[type] || '📍';
+        
+        // Create the pin SVG
+        markerEl.innerHTML = `
+            <div class="pin-container">
+                <div class="pin-icon" style="color: ${color};">${icon}</div>
+                <div class="pin-shadow"></div>
+            </div>
+        `;
+        
+        // Add CSS styles
+        markerEl.style.cssText = `
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            position: relative;
+        `;
+        
+        return markerEl;
     }
 
     async getDirectionsAndDistance(fromCoords, toCoords) {
@@ -740,12 +839,8 @@ class NavigationComponent {
             
             console.log('NavigationComponent: Adding park marker at:', markerLat, markerLng);
             
-            // Create custom marker element for park
-            const parkMarkerEl = document.createElement('div');
-            parkMarkerEl.className = 'park-marker';
-            parkMarkerEl.innerHTML = '🏞️';
-            parkMarkerEl.style.fontSize = '24px';
-            parkMarkerEl.style.cursor = 'pointer';
+            // Create pin marker for park (destination)
+            const parkMarkerEl = this.createPinMarker('destination', 'high');
             
             const parkMarker = new mapboxgl.Marker(parkMarkerEl)
                 .setLngLat([markerLng, markerLat])
@@ -763,16 +858,20 @@ class NavigationComponent {
             userCoords = await this.geocodeAddress(savedAddress);
             
             if (userCoords) {
-                const userMarkerEl = document.createElement('div');
-                userMarkerEl.className = 'user-marker';
-                userMarkerEl.innerHTML = '🏠';
-                userMarkerEl.style.fontSize = '24px';
-                userMarkerEl.style.cursor = 'pointer';
+                // Create pin marker for user location with quality-based color
+                const userMarkerEl = this.createPinMarker('user', userCoords.quality?.level || 'low');
+                
+                // Create popup with quality information
+                const qualityInfo = userCoords.quality ? 
+                    `<div class="quality-indicator quality-${userCoords.quality.level}">
+                        <span class="quality-label">Address Quality: ${userCoords.quality.level.toUpperCase()}</span>
+                        <span class="quality-score">(${userCoords.quality.score}%)</span>
+                    </div>` : '';
                 
                 const userMarker = new mapboxgl.Marker(userMarkerEl)
                     .setLngLat([userCoords.lng, userCoords.lat])
                     .setPopup(new mapboxgl.Popup({ offset: 25 })
-                        .setHTML(`<h4>Your Location</h4><p>${savedAddress}</p>`))
+                        .setHTML(`<h4>Your Location</h4><p>${userCoords.placeName || savedAddress}</p>${qualityInfo}`))
                     .addTo(map);
                 
                 markers.push(userMarker);
