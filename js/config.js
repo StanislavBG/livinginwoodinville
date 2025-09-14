@@ -7,7 +7,12 @@ const CONFIG = (() => {
     let basePath = '';
     if (isGitHubPages) {
         const pathSegments = window.location.pathname.split('/');
-        if (pathSegments[1] === 'livinginwoodinville') {
+        // Extract repository name from the path (second segment)
+        if (pathSegments.length > 1 && pathSegments[1]) {
+            basePath = `/${pathSegments[1]}`;
+        }
+        // Fallback: if we can't detect from path, use the known repository name
+        if (!basePath) {
             basePath = '/livinginwoodinville';
         }
     }
