@@ -185,7 +185,14 @@ class NavigationComponent {
                 e.stopPropagation();
                 const href = treeLink.getAttribute('href');
                 console.log('NavigationComponent: Tree link clicked:', href);
-                this.navigateToPage(href);
+                
+                // Handle home link specially
+                if (href === '/' || href === '') {
+                    this.navigateToHome();
+                } else {
+                    this.navigateToPage(href);
+                }
+                
                 // Close mobile navigation after selection
                 this.closeMobileNav();
                 return;
