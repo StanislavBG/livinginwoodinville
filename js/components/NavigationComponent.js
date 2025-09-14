@@ -240,8 +240,10 @@ class NavigationComponent {
     setupHistoryHandling() {
         // Handle browser back/forward buttons
         window.addEventListener('popstate', (e) => {
-            const path = window.location.pathname;
-            if (path === '/' || path === '') {
+            const path = this.extractPathFromUrl(window.location.pathname);
+            console.log('NavigationComponent: Popstate event, extracted path:', path);
+            
+            if (path === '/' || path === '' || path === 'home') {
                 this.loadHomePage();
             } else {
                 this.loadPageContent(path);
@@ -249,11 +251,27 @@ class NavigationComponent {
         });
 
         // Load page content based on current path
-        if (window.location.pathname === '/' || window.location.pathname === '') {
+        const currentPath = this.extractPathFromUrl(window.location.pathname);
+        console.log('NavigationComponent: Initial load, extracted path:', currentPath);
+        
+        if (currentPath === '/' || currentPath === '' || currentPath === 'home') {
             this.loadHomePage();
         } else {
-            this.loadPageContent(window.location.pathname);
+            this.loadPageContent(currentPath);
         }
+    }
+
+    extractPathFromUrl(fullPath) {
+        // Extract the actual page path from the full URL path
+        // Remove the base path to get the actual page path
+        const basePath = window.CONFIG?.basePath || '';
+        
+        if (basePath && fullPath.startsWith(basePath)) {
+            const extractedPath = fullPath.substring(basePath.length);
+            return extractedPath === '' ? '/' : extractedPath;
+        }
+        
+        return fullPath;
     }
 
     async loadHomePage() {
@@ -285,11 +303,14 @@ class NavigationComponent {
                 mainContent.innerHTML = '<div class="loading">Loading...</div>';
             }
             
-            // Extract page slug from href (e.g., /content/douglas-fir.html -> douglas-fir)
-            const pageSlug = href.split('/').pop().replace('.html', '');
+            // Clean the href to remove leading slash and extract page slug
+            const cleanHref = href.startsWith('/') ? href.substring(1) : href;
+            const pageSlug = cleanHref.split('/').pop().replace('.html', '');
+            
+            console.log('NavigationComponent: Cleaned href:', cleanHref, 'Page slug:', pageSlug);
             
             // If no page slug, this is likely the home page
-            if (!pageSlug || pageSlug === '') {
+            if (!pageSlug || pageSlug === '' || pageSlug === 'home') {
                 console.log('NavigationComponent: No page slug, loading home page');
                 await this.loadHomePage();
                 return;
@@ -1050,7 +1071,13 @@ class NavigationComponent {
     navigateToPage(href) {
         console.log('NavigationComponent: Navigating to:', href);
         this.loadPageContent(href);
-        window.history.pushState({}, '', href);
+        
+        // Ensure URL includes base path for GitHub Pages
+        const basePath = window.CONFIG?.basePath || '';
+        const fullHref = href.startsWith('/') ? `${basePath}${href}` : `${basePath}/${href}`;
+        
+        console.log('NavigationComponent: Updating URL to:', fullHref);
+        window.history.pushState({}, '', fullHref);
     }
 
     async navigateToHome() {
@@ -1058,8 +1085,12 @@ class NavigationComponent {
         // Load the home page content
         await this.loadPageContent('/home');
         
-        // Update URL to home
-        window.history.pushState({}, '', '/');
+        // Update URL to home with base path
+        const basePath = window.CONFIG?.basePath || '';
+        const homeUrl = basePath === '' ? '/' : basePath;
+        
+        console.log('NavigationComponent: Updating URL to home:', homeUrl);
+        window.history.pushState({}, '', homeUrl);
         
         // Update active navigation (remove active states)
         document.querySelectorAll('.tree-link').forEach(link => {
@@ -1265,9 +1296,37 @@ class NavigationComponent {
                     e.stopPropagation();
                     const href = link.getAttribute('href');
                     console.log('NavigationComponent: SPA link clicked:', href);
-                    this.navigateToPage(href);
+                    
+                    // Handle home link specially
+                    if (href === '/' || href === '') {
+                        this.navigateToHome();
+                    } else {
+                        this.navigateToPage(href);
+                    }
                 });
             });
+        }
+        
+        // Also handle SPA links in the main page (like home link in header)
+        const allSpaLinks = document.querySelectorAll('.spa-link');
+        allSpaLinks.forEach(link => {
+            // Remove existing listeners to avoid duplicates
+            link.removeEventListener('click', this.handleSpaLinkClick);
+            link.addEventListener('click', this.handleSpaLinkClick.bind(this));
+        });
+    }
+
+    handleSpaLinkClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const href = e.target.getAttribute('href');
+        console.log('NavigationComponent: SPA link clicked:', href);
+        
+        // Handle home link specially
+        if (href === '/' || href === '') {
+            this.navigateToHome();
+        } else {
+            this.navigateToPage(href);
         }
     }
 
