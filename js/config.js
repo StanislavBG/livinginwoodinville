@@ -7,8 +7,8 @@ const CONFIG = (() => {
     let basePath = '';
     if (isGitHubPages) {
         const pathSegments = window.location.pathname.split('/');
-        if (pathSegments[1] === 'livinginwoodenville') {
-            basePath = '/livinginwoodenville';
+        if (pathSegments[1] === 'livinginwoodinville') {
+            basePath = '/livinginwoodinville';
         }
     }
     
