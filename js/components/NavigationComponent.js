@@ -146,6 +146,17 @@ class NavigationComponent {
             }
         });
 
+        // Handle home link clicks
+        const homeLink = document.querySelector('.home-link');
+        if (homeLink) {
+            homeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('NavigationComponent: Home link clicked');
+                this.navigateToHome();
+            });
+        }
+
         // Mark event listeners as setup
         this.eventListenersSetup = true;
 
@@ -853,6 +864,66 @@ class NavigationComponent {
         console.log('NavigationComponent: Navigating to:', href);
         this.loadPageContent(href);
         window.history.pushState({}, '', href);
+    }
+
+    navigateToHome() {
+        console.log('NavigationComponent: Navigating to home');
+        // Load the default welcome content
+        const mainContent = document.querySelector('.main-content-area');
+        if (mainContent) {
+            mainContent.innerHTML = `
+                <div class="welcome-content">
+                    <h1>Welcome to Living in Woodinville</h1>
+                    <p>Your comprehensive guide to life in Woodinville, WA. Discover local attractions, gardening tips, outdoor activities, and everything you need to know about this beautiful Washington town.</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-home"></i>
+                            <h3>Home & Garden</h3>
+                            <p>Explore USDA Zone 8b gardening, native trees, and essential gardening tips for Woodinville's climate.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-hiking"></i>
+                            <h3>Outdoor Activities</h3>
+                            <p>Discover local parks, hiking trails, and water activities in and around Woodinville.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Local Attractions</h3>
+                            <p>Find tourist attractions, events, and entertainment venues in the area.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Community Life</h3>
+                            <p>Connect with local businesses, farmers markets, and community services.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-wine-glass-alt"></i>
+                            <h3>Wine & Dining</h3>
+                            <p>Explore local wineries, restaurants, and dining experiences in Woodinville.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Education & Resources</h3>
+                            <p>Access information about schools, libraries, and local resources.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="getting-started">
+                        <h2>Getting Started</h2>
+                        <p>Use the navigation menu on the left to explore different topics. Each section contains detailed information, photos, and interactive features to help you discover everything Woodinville has to offer.</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Update URL to home
+        window.history.pushState({}, '', '/');
+        
+        // Update active navigation (remove active states)
+        document.querySelectorAll('.tree-link').forEach(link => {
+            link.classList.remove('active');
+        });
     }
 
     updateActiveNavigation(href) {
