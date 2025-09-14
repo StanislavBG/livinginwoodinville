@@ -110,6 +110,10 @@ class TemplateEngine {
         const slug = data.name ? data.name.toLowerCase().replace(/\s+/g, '-') : '';
         result = result.replace(/\{\{PLANT_SLUG\}\}/g, slug);
         result = result.replace(/\{\{PLANT_SLUG_UNDERSCORE\}\}/g, slug.replace(/-/g, '_'));
+        
+        // Handle image base path
+        const imageBasePath = window.CONFIG?.images?.base || '/images/';
+        result = result.replace(/\{\{IMAGE_BASE_PATH\}\}/g, imageBasePath);
 
         // Handle park-specific variables
         result = result.replace(/\{\{PARK_NAME\}\}/g, data.name || '');

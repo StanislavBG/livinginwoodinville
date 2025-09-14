@@ -138,7 +138,8 @@ class PhotoWidget {
                 
                 // Try each file extension
                 for (const extension of fileExtensions) {
-                    const photoPath = `/images/${plantSlug}/${plantSlugUnderscore}__${season}__${String(i).padStart(2, '0')}${extension}`;
+                    const basePath = window.CONFIG?.images?.base || '/images/';
+                    const photoPath = `${basePath}${plantSlug}/${plantSlugUnderscore}__${season}__${String(i).padStart(2, '0')}${extension}`;
                     
                     try {
                         const response = await fetch(photoPath, { method: 'HEAD' });
