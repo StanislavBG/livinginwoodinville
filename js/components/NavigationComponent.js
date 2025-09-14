@@ -11,13 +11,14 @@ class NavigationComponent {
         this.geocodeCache = new Map();
         this.directionsCache = new Map();
         this.mapboxAccessToken = 'REDACTED';
+        this.eventListenersSetup = false;
         // Don't call init() here - let App handle initialization timing
     }
 
     async init() {
         console.log('NavigationComponent: Starting initialization...');
         await this.loadNavigationIfNeeded();
-        this.setupTreeNavigation();
+        // Don't call setupTreeNavigation here - it's called in loadNavigationIfNeeded
         this.setupHistoryHandling();
         this.restoreTreeState();
         this.setupAddressInput();
@@ -30,24 +31,36 @@ class NavigationComponent {
         const existingNav = document.querySelector('nav.side-nav');
         const hasRealNavigation = existingNav && !existingNav.querySelector('.loading-nav');
         
+        console.log('NavigationComponent: Checking navigation state:', {
+            existingNav: !!existingNav,
+            hasRealNavigation: hasRealNavigation,
+            loadingNav: !!existingNav?.querySelector('.loading-nav')
+        });
+        
         if (!hasRealNavigation) {
             console.log('NavigationComponent: No real navigation found, loading from central source');
             const navContainer = document.querySelector('#sideNav') || document.querySelector('.side-nav');
             if (navContainer) {
                 console.log('NavigationComponent: Injecting navigation into container');
-                await this.navigationLoader.injectNavigation(navContainer);
-                console.log('NavigationComponent: Navigation injected, waiting for DOM update');
-                // Wait for DOM to be fully updated before setting up event listeners
-                setTimeout(() => {
-                    console.log('NavigationComponent: Setting up event listeners after DOM update');
-                    this.setupEventListeners();
-                }, 100);
+                const success = await this.navigationLoader.injectNavigation(navContainer);
+                if (success) {
+                    console.log('NavigationComponent: Navigation injected successfully');
+                    // Wait for DOM to be fully updated before setting up event listeners
+                    setTimeout(() => {
+                        console.log('NavigationComponent: Setting up event listeners after DOM update');
+                        this.setupEventListeners();
+                        this.setupTreeNavigation();
+                    }, 100); // Reduced delay since we have duplicate prevention
+                } else {
+                    console.error('NavigationComponent: Failed to inject navigation');
+                }
             } else {
-                console.log('NavigationComponent: No navigation container found!');
+                console.error('NavigationComponent: No navigation container found!');
             }
         } else {
             console.log('NavigationComponent: Real navigation found, using existing navigation');
             this.setupEventListeners();
+            this.setupTreeNavigation();
         }
     }
 
@@ -78,70 +91,68 @@ class NavigationComponent {
     }
 
     setupTreeNavigation() {
-        // Handle tree node clicks (both toggle and label)
-        const treeNodes = document.querySelectorAll('.tree-node');
-        console.log('NavigationComponent: Found', treeNodes.length, 'tree nodes');
-        
-        if (treeNodes.length === 0) {
-            console.warn('NavigationComponent: No tree nodes found! Navigation may not be loaded yet.');
+        // Prevent duplicate event listener setup
+        if (this.eventListenersSetup) {
+            console.log('NavigationComponent: Event listeners already setup, skipping');
             return;
         }
+
+        // Use event delegation for better performance and reliability
+        const navContainer = document.querySelector('nav.side-nav');
+        if (!navContainer) {
+            console.warn('NavigationComponent: No navigation container found!');
+            return;
+        }
+
+        console.log('NavigationComponent: Setting up event delegation on nav container');
         
-        treeNodes.forEach((node, index) => {
-            const treeItem = node.closest('.tree-item');
-            const children = treeItem?.querySelector('.tree-children');
-            const toggle = node.querySelector('.tree-toggle');
+        // Handle all clicks within the navigation using event delegation
+        navContainer.addEventListener('click', (e) => {
+            console.log('NavigationComponent: Click detected on:', e.target);
             
-            if (children) {
-                // This node has children - make it expandable
-                console.log('NavigationComponent: Setting up expandable node', index);
+            // Check if it's a tree node click
+            const treeNode = e.target.closest('.tree-node');
+            if (treeNode) {
+                e.preventDefault();
+                e.stopPropagation();
                 
-                // Handle clicks on the entire tree node (both toggle and label)
-                node.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('NavigationComponent: Tree node clicked for expansion', index);
-                    this.toggleTreeNode(node, children);
-                });
+                const treeItem = treeNode.closest('.tree-item');
+                const children = treeItem?.querySelector('.tree-children');
+                const nodeText = treeNode.querySelector('.tree-label')?.textContent?.trim();
                 
-                // Special handling for toggle button
-                if (toggle) {
-                    toggle.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log('NavigationComponent: Toggle button clicked', index);
-                        this.toggleTreeNode(node, children);
-                    });
+                console.log('NavigationComponent: Tree node clicked:', nodeText, 'Has children:', !!children);
+                
+                if (children) {
+                    // This node has children - toggle expansion
+                    console.log('NavigationComponent: Toggling tree node:', nodeText);
+                    this.toggleTreeNode(treeNode, children);
+                } else if (nodeText === 'USDA Zone 8b') {
+                    // Special case for USDA Zone
+                    console.log('NavigationComponent: USDA Zone clicked');
+                    this.navigateToPage('/usda-zone-8b');
                 }
-            } else {
-                // This node might be a special node like USDA Zone
-                const nodeText = node.textContent?.trim();
-                if (nodeText === 'USDA Zone 8b') {
-                    console.log('NavigationComponent: Setting up USDA Zone node');
-                    node.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log('NavigationComponent: USDA Zone clicked');
-                        this.navigateToPage('/usda-zone-8b');
-                    });
-                }
+                return;
+            }
+            
+            // Check if it's a tree link click
+            const treeLink = e.target.closest('.tree-link');
+            if (treeLink) {
+                e.preventDefault();
+                e.stopPropagation();
+                const href = treeLink.getAttribute('href');
+                console.log('NavigationComponent: Tree link clicked:', href);
+                this.navigateToPage(href);
+                return;
             }
         });
 
-        // Handle tree link clicks (leaf nodes)
+        // Mark event listeners as setup
+        this.eventListenersSetup = true;
+
+        // Log the setup
+        const treeNodes = document.querySelectorAll('.tree-node');
         const treeLinks = document.querySelectorAll('.tree-link');
-        console.log('NavigationComponent: Found', treeLinks.length, 'tree links');
-        treeLinks.forEach((link, index) => {
-            console.log('NavigationComponent: Setting up click handler for link', index, link.href);
-            link.addEventListener('click', (e) => {
-                console.log('NavigationComponent: Link click intercepted!', e.target.href);
-                e.preventDefault();
-                e.stopPropagation();
-                const href = link.getAttribute('href');
-                console.log('NavigationComponent: Link clicked:', href);
-                this.navigateToPage(href);
-            });
-        });
+        console.log('NavigationComponent: Setup complete -', treeNodes.length, 'tree nodes,', treeLinks.length, 'tree links');
     }
 
     toggleTreeNode(node, children) {

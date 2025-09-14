@@ -17,7 +17,10 @@ class App {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', async () => await this.initializeComponents());
         } else {
-            this.initializeComponents();
+            // DOM is already ready, initialize immediately
+            this.initializeComponents().catch(error => {
+                console.error('App: Error during immediate initialization:', error);
+            });
         }
     }
 
@@ -27,17 +30,21 @@ class App {
             // Initialize Navigation Component
             console.log('App: Creating NavigationComponent...');
             this.components.navigation = new NavigationComponent();
-            console.log('App: Calling navigation.init()...');
+            console.log('App: NavigationComponent created, calling init()...');
             await this.components.navigation.init();
+            console.log('App: NavigationComponent initialized successfully');
             
             // Initialize other components as needed
+            console.log('App: Initializing photo widgets...');
             await this.initializePhotoWidgets();
+            console.log('App: Photo widgets initialized');
             
             this.isInitialized = true;
-            console.log('App: Initialized successfully');
+            console.log('App: All components initialized successfully');
             
         } catch (error) {
             console.error('App: Error during initialization:', error);
+            console.error('App: Error stack:', error.stack);
         }
     }
 

@@ -127,5 +127,89 @@
     "dogsAllowed": true,
     "hasWaterfall": true,
     "hasLake": false
+  },
+  "paradise-valley-conservation-area": {
+    "name": "Paradise Valley Conservation Area",
+    "address": "23210 Paradise Lake Rd",
+    "cityState": "Woodinville, WA 98077",
+    "latitude": 47.7898,
+    "longitude": -122.0819,
+    "description": "A beautiful 793-acre conservation area featuring mature second-growth forest, wetlands, and over 13 miles of designated multi-use trails. This park plays a vital role in the health of the Bear Creek watershed and offers trails for all fitness levels.",
+    "features": "Multi-use trails, forest, wetlands, wildlife viewing, mountain biking, equestrian trails",
+    "trailLength": "13+ miles",
+    "trailLengthDisplay": "13+ mi trails",
+    "surface": "Natural trails suitable for hiking, mountain biking, and horseback riding",
+    "accessPoints": [
+      "Main trailhead: 23210 Paradise Lake Road, Woodinville, WA 98077"
+    ],
+    "bestTimes": "Year-round, with spring and fall offering the best conditions. Early morning provides excellent wildlife viewing.",
+    "hasPlayground": false,
+    "waterAccess": true,
+    "dogsAllowed": true,
+    "hasWaterfall": false,
+    "hasLake": false
+  },
+  "rotary-community-park": {
+    "name": "Rotary Community Park",
+    "address": "19518 136th Ave NE",
+    "cityState": "Woodinville, WA 98072",
+    "latitude": 47.7591,
+    "longitude": -122.1474,
+    "description": "Woodinville's largest community park established in 2001, featuring a half-mile boardwalk loop trail through the woods, playground facilities, and diverse recreational amenities for families.",
+    "features": "Boardwalk trail, playground, climbing boulder, skate park, picnic areas, wetland areas",
+    "trailLength": "0.5 miles",
+    "trailLengthDisplay": "0.5 mi boardwalk",
+    "surface": "Boardwalk and paved paths suitable for all ages",
+    "accessPoints": [
+      "Main entrance: 19518 136th Avenue NE, Woodinville, WA 98072"
+    ],
+    "bestTimes": "Spring through fall for best weather conditions. Year-round accessibility.",
+    "hasPlayground": true,
+    "waterAccess": false,
+    "dogsAllowed": true,
+    "hasWaterfall": false,
+    "hasLake": false
+  },
+  "juanita-bay-park": {
+    "name": "Juanita Bay Park",
+    "address": "2201 Market St",
+    "cityState": "Kirkland, WA 98033",
+    "latitude": 47.6953,
+    "longitude": -122.2102,
+    "description": "A stunning 110-acre urban wildlife habitat featuring over 200 bird species, beavers, and diverse flora. The park offers 3,000 feet of trails and boardwalks through six different plant communities including marshlands and open water areas.",
+    "features": "Wildlife viewing, boardwalks, bird watching, wetlands, Forbes Creek access",
+    "trailLength": "2.0 miles",
+    "trailLengthDisplay": "2.0 mi trails",
+    "surface": "Boardwalks and natural trails, wheelchair accessible",
+    "accessPoints": [
+      "Main entrance: 2201 Market Street, Kirkland, WA 98033"
+    ],
+    "bestTimes": "Year-round, with spring and fall offering peak wildlife viewing. Early morning is best for bird watching.",
+    "hasPlayground": false,
+    "waterAccess": true,
+    "dogsAllowed": true,
+    "hasWaterfall": false,
+    "hasLake": true
+  },
+  "cottage-lake-park": {
+    "name": "Cottage Lake Park",
+    "address": "18831 NE Woodinville Duvall Rd",
+    "cityState": "Woodinville, WA 98072",
+    "latitude": 47.7456,
+    "longitude": -122.1089,
+    "description": "A scenic 20-acre park surrounding a beautiful lake, offering a perfect combination of water activities and hiking trails. Features a floating dock, swimming pool operated by Northshore YMCA, and loop trail with boardwalk sections along the lake.",
+    "features": "Lake access, floating dock, swimming pool, playground, boat launch, kayak access, picnic shelter",
+    "trailLength": "0.7 miles",
+    "trailLengthDisplay": "0.7 mi loop",
+    "surface": "Paved path transitioning to boardwalk along the lake",
+    "accessPoints": [
+      "Main entrance: 18831 Northeast Woodinville Duvall Road, Woodinville, WA 98072"
+    ],
+    "bestTimes": "Year-round for hiking, spring through fall for water activities and swimming",
+    "hasPlayground": true,
+    "waterAccess": true,
+    "dogsAllowed": true,
+    "hasWaterfall": false,
+    "hasLake": true
   }
 }
