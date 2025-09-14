@@ -96,6 +96,24 @@ class NavigationComponent {
                 this.closeMobileNav();
             }
         });
+
+        // Global SPA link delegation - handle all SPA links on the page
+        document.addEventListener('click', (e) => {
+            const spaLinks = e.target.closest('.spa-link');
+            if (spaLinks) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const href = spaLinks.getAttribute('href');
+                console.log('NavigationComponent: Global SPA link clicked:', href);
+                
+                if (href === '/' || href === '') {
+                    this.navigateToHome();
+                } else {
+                    this.navigateToPage(href);
+                }
+            }
+        });
     }
 
     toggleMobileNav() {
@@ -1293,30 +1311,28 @@ class NavigationComponent {
     }
 
     setupSPALinks() {
+        console.log('NavigationComponent: Setting up SPA links...');
+        
         // Handle SPA links in dynamically loaded content
         const mainContent = document.querySelector('.main-content-area');
         if (mainContent) {
             const spaLinks = mainContent.querySelectorAll('.spa-link');
-            spaLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const href = link.getAttribute('href');
-                    console.log('NavigationComponent: SPA link clicked:', href);
-                    
-                    // Handle home link specially
-                    if (href === '/' || href === '') {
-                        this.navigateToHome();
-                    } else {
-                        this.navigateToPage(href);
-                    }
-                });
+            console.log('NavigationComponent: Found', spaLinks.length, 'SPA links in main content');
+            
+            spaLinks.forEach((link, index) => {
+                console.log('NavigationComponent: Setting up SPA link', index, ':', link.getAttribute('href'));
+                
+                // Remove existing listeners to avoid duplicates
+                link.removeEventListener('click', this.handleSpaLinkClick);
+                link.addEventListener('click', this.handleSpaLinkClick.bind(this));
             });
         }
         
         // Also handle SPA links in the main page (like home link in header)
         const allSpaLinks = document.querySelectorAll('.spa-link');
-        allSpaLinks.forEach(link => {
+        console.log('NavigationComponent: Found', allSpaLinks.length, 'total SPA links on page');
+        
+        allSpaLinks.forEach((link, index) => {
             // Remove existing listeners to avoid duplicates
             link.removeEventListener('click', this.handleSpaLinkClick);
             link.addEventListener('click', this.handleSpaLinkClick.bind(this));
@@ -1326,13 +1342,24 @@ class NavigationComponent {
     handleSpaLinkClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        const href = e.target.getAttribute('href');
-        console.log('NavigationComponent: SPA link clicked:', href);
+        
+        // Get the href from the clicked element or its closest link
+        const link = e.target.closest('a');
+        const href = link ? link.getAttribute('href') : e.target.getAttribute('href');
+        
+        console.log('NavigationComponent: SPA link clicked:', href, 'from element:', e.target);
+        
+        if (!href) {
+            console.warn('NavigationComponent: No href found for SPA link');
+            return;
+        }
         
         // Handle home link specially
         if (href === '/' || href === '') {
+            console.log('NavigationComponent: Navigating to home via SPA link');
             this.navigateToHome();
         } else {
+            console.log('NavigationComponent: Navigating to page via SPA link:', href);
             this.navigateToPage(href);
         }
     }
