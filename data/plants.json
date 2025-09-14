@@ -366,5 +366,400 @@
         ]
       }
     }
+  },
+  "roses": {
+    "name": "Pacific Northwest Roses",
+    "scientificName": "Rosa species",
+    "type": "Flower",
+    "description": "Native and adapted roses that thrive in Washington's climate",
+    "about": "Roses are among the most beloved flowering plants in Washington gardens. From native species like Nootka Rose to well-adapted varieties, roses provide beautiful blooms, fragrance, and wildlife value throughout the growing season. Many varieties are perfectly suited to Woodinville's climate.",
+    "height": "2-8 feet depending on variety",
+    "spread": "2-6 feet wide",
+    "growthRate": "Moderate to fast, 1-2 feet per year",
+    "soilPreference": "Well-drained, fertile soil with organic matter",
+    "sunExposure": "Full sun (6+ hours daily)",
+    "waterNeeds": "Moderate, consistent moisture preferred",
+    "bloomTime": "Late spring through fall (May-October)",
+    "nativeHabitat": "Various species native to Pacific Northwest, many adapted varieties",
+    "landscapingUses": "Excellent for borders, hedges, specimen plants, and wildlife gardens. Great for attracting pollinators and providing seasonal interest.",
+    "flowerDescription": "Showy, fragrant flowers in various colors from white to deep pink and red",
+    "foliageDescription": "Compound leaves with 5-7 leaflets, often with thorns",
+    "fruitDescription": "Rose hips (red to orange) that persist through winter",
+    "growingConditions": "Roses thrive in Woodinville's temperate climate with proper care. They prefer well-drained soil and benefit from regular watering and feeding. Many varieties are disease-resistant and low-maintenance.",
+    "locationInfo": "Roses can be found throughout Woodinville in residential gardens, parks, and public spaces. Look for them in local gardens and nurseries where they provide year-round beauty and interest.",
+    "wildlifeValue": "Roses provide important habitat and food for birds, bees, and other pollinators. The flowers attract beneficial insects, and rose hips provide winter food for birds and small mammals.",
+    "seasons": {
+      "spring": {
+        "title": "Spring Characteristics",
+        "description": "Spring brings new growth and the first blooms to roses. Fresh green foliage emerges and early varieties begin flowering.",
+        "characteristics": [
+          "Fresh green foliage emerges",
+          "Early varieties begin blooming",
+          "New growth appears on canes",
+          "Pruning and maintenance time"
+        ]
+      },
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer is peak bloom time for most roses. The plants are covered in flowers and provide maximum color and fragrance.",
+        "characteristics": [
+          "Peak bloom period",
+          "Maximum flower production",
+          "Intense fragrance",
+          "Full foliage development"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics",
+        "description": "Fall brings continued blooming for many varieties and the development of colorful rose hips. Foliage may show autumn colors.",
+        "characteristics": [
+          "Continued blooming for many varieties",
+          "Rose hips develop and ripen",
+          "Foliage may show fall colors",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter reveals the rose's structure and persistent rose hips. Many varieties maintain some foliage, and the canes provide winter interest.",
+        "characteristics": [
+          "Bare or semi-evergreen canes visible",
+          "Persistent rose hips provide color",
+          "Interesting branching structure",
+          "Dormant period for most varieties"
+        ]
+      }
+    },
+    "photography": {
+      "intro": "Roses offer excellent photographic opportunities throughout the growing season with their beautiful flowers and changing foliage.",
+      "tips": [
+        "Morning Light: Early morning light brings out the best colors and reduces harsh shadows",
+        "Macro Photography: Focus on individual flowers and their intricate details",
+        "Backlighting: Shoot against the sun to create glowing petal effects",
+        "Rain Drops: Water droplets on petals create beautiful macro opportunities"
+      ],
+      "composition": [
+        "Include the distinctive rose hip in fall and winter shots",
+        "Capture the layered petal structure in close-ups",
+        "Use the thorny canes as interesting background elements",
+        "Look for interesting light patterns through the foliage"
+      ]
+    }
+  },
+  "lavender": {
+    "name": "English Lavender",
+    "scientificName": "Lavandula angustifolia",
+    "type": "Flower",
+    "description": "Fragrant perennial herb perfect for Washington gardens",
+    "about": "English Lavender is a beloved perennial herb that thrives in Washington's climate. Known for its fragrant purple flowers and silvery foliage, it's a favorite in gardens throughout Woodinville. This drought-tolerant plant provides long-lasting blooms and attracts beneficial pollinators.",
+    "height": "1-3 feet at maturity",
+    "spread": "1-2 feet wide",
+    "growthRate": "Moderate, reaches full size in 2-3 years",
+    "soilPreference": "Well-drained, slightly alkaline soil",
+    "sunExposure": "Full sun (6+ hours daily)",
+    "waterNeeds": "Low to moderate, drought tolerant once established",
+    "bloomTime": "Mid to late summer (July-September)",
+    "nativeHabitat": "Mediterranean region, well-adapted to Pacific Northwest",
+    "landscapingUses": "Excellent for borders, herb gardens, rock gardens, and mass plantings. Great for attracting bees and butterflies. Can be used for culinary and craft purposes.",
+    "flowerDescription": "Dense spikes of small, fragrant purple flowers",
+    "foliageDescription": "Narrow, silvery-gray leaves with fine texture",
+    "fruitDescription": "Small nutlets within the dried flower heads",
+    "growingConditions": "Lavender thrives in Woodinville's dry summers and mild winters. It prefers well-drained soil and benefits from good air circulation. Avoid overwatering and heavy, clay soils.",
+    "locationInfo": "Lavender can be found throughout Woodinville in residential gardens, herb gardens, and public landscapes. Look for it in sunny, well-drained locations where it provides year-round interest.",
+    "wildlifeValue": "Lavender is highly attractive to bees, butterflies, and other beneficial pollinators. The flowers provide nectar throughout the summer, and the plant supports a diverse ecosystem of beneficial insects.",
+    "seasons": {
+      "spring": {
+        "title": "Spring Characteristics",
+        "description": "Spring brings fresh growth to lavender plants. New silvery foliage emerges and the plants begin their growth cycle for the season.",
+        "characteristics": [
+          "Fresh silvery foliage emerges",
+          "New growth appears on stems",
+          "Plants begin active growth",
+          "Pruning and maintenance time"
+        ]
+      },
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer is peak bloom time for lavender. The plants are covered in fragrant purple flower spikes and provide maximum color and fragrance.",
+        "characteristics": [
+          "Peak bloom period",
+          "Fragrant purple flower spikes",
+          "Maximum pollinator activity",
+          "Full foliage development"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics",
+        "description": "Fall brings the end of blooming and the development of seed heads. The silvery foliage remains attractive and provides winter interest.",
+        "characteristics": [
+          "Flowering period ends",
+          "Seed heads develop",
+          "Foliage remains attractive",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter showcases lavender's evergreen nature. The silvery foliage provides year-round interest and the seed heads add texture to the winter garden.",
+        "characteristics": [
+          "Evergreen silvery foliage",
+          "Persistent seed heads",
+          "Interesting texture and form",
+          "Dormant but still attractive"
+        ]
+      }
+    },
+    "photography": {
+      "intro": "Lavender offers beautiful photographic opportunities with its distinctive flower spikes and silvery foliage.",
+      "tips": [
+        "Golden Hour: Early morning or late afternoon light enhances the silvery foliage",
+        "Macro Photography: Focus on individual flower spikes and their intricate details",
+        "Mass Plantings: Capture the full impact of lavender in large plantings",
+        "Texture Details: Highlight the contrast between flowers and foliage"
+      ],
+      "composition": [
+        "Include the distinctive flower spike structure",
+        "Capture the silvery foliage texture in close-ups",
+        "Use the linear form for interesting compositions",
+        "Look for interesting light patterns through the foliage"
+      ]
+    }
+  },
+  "echinacea": {
+    "name": "Purple Coneflower",
+    "scientificName": "Echinacea purpurea",
+    "type": "Flower",
+    "description": "Native wildflower that attracts pollinators and provides long-lasting blooms",
+    "about": "Purple Coneflower is a native wildflower that has become a garden favorite throughout Washington. Known for its distinctive purple petals and prominent cone centers, it's a magnet for butterflies and bees. This hardy perennial provides long-lasting blooms and requires minimal care.",
+    "height": "2-4 feet at maturity",
+    "spread": "1-2 feet wide",
+    "growthRate": "Moderate, reaches full size in 2-3 years",
+    "soilPreference": "Well-drained soil, tolerates various conditions",
+    "sunExposure": "Full sun to partial shade",
+    "waterNeeds": "Low to moderate, drought tolerant once established",
+    "bloomTime": "Mid summer to early fall (July-September)",
+    "nativeHabitat": "Eastern and central North America, naturalized in Pacific Northwest",
+    "landscapingUses": "Excellent for wildflower gardens, borders, and naturalized areas. Great for attracting pollinators and providing seasonal interest. Seeds provide winter food for birds.",
+    "flowerDescription": "Large, daisy-like flowers with purple petals and prominent orange-brown cone centers",
+    "foliageDescription": "Coarse, dark green leaves with rough texture",
+    "fruitDescription": "Seeds within the dried cone heads that persist through winter",
+    "growingConditions": "Coneflowers thrive in Woodinville's climate with minimal care. They prefer well-drained soil and can tolerate both full sun and partial shade. These hardy perennials are drought-tolerant once established.",
+    "locationInfo": "Coneflowers can be found throughout Woodinville in residential gardens, wildflower areas, and public landscapes. Look for them in sunny locations where they provide summer color and attract pollinators.",
+    "wildlifeValue": "Coneflowers are highly attractive to butterflies, bees, and other beneficial pollinators. The flowers provide nectar throughout the summer, and the seed heads provide winter food for birds and small mammals.",
+    "seasons": {
+      "spring": {
+        "title": "Spring Characteristics",
+        "description": "Spring brings new growth to coneflower plants. Fresh green foliage emerges and the plants begin their growth cycle for the season.",
+        "characteristics": [
+          "Fresh green foliage emerges",
+          "New growth appears from crown",
+          "Plants begin active growth",
+          "Preparation for flowering"
+        ]
+      },
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer is peak bloom time for coneflowers. The plants produce numerous large, colorful flowers that attract pollinators throughout the season.",
+        "characteristics": [
+          "Peak bloom period",
+          "Large purple flowers with cone centers",
+          "Maximum pollinator activity",
+          "Full foliage development"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics",
+        "description": "Fall brings the end of blooming and the development of seed heads. The dried flower heads provide winter interest and food for birds.",
+        "characteristics": [
+          "Flowering period ends",
+          "Seed heads develop and dry",
+          "Foliage begins to decline",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter showcases the coneflower's persistent seed heads. The dried flower structures provide winter interest and food for birds.",
+        "characteristics": [
+          "Dried seed heads persist",
+          "Bare stems visible",
+          "Seeds provide bird food",
+          "Dormant until spring"
+        ]
+      }
+    },
+    "photography": {
+      "intro": "Coneflowers offer excellent photographic opportunities with their distinctive flower structure and wildlife interactions.",
+      "tips": [
+        "Pollinator Shots: Capture butterflies and bees on the flowers",
+        "Macro Photography: Focus on the intricate cone center details",
+        "Backlighting: Shoot against the sun to create glowing petal effects",
+        "Seed Head Details: Photograph the interesting dried seed structures"
+      ],
+      "composition": [
+        "Include the distinctive cone center in close-ups",
+        "Capture the layered petal structure",
+        "Use the vertical flower stems for interesting compositions",
+        "Look for wildlife interactions with the flowers"
+      ]
+    }
+  },
+  "black-eyed-susan": {
+    "name": "Black-Eyed Susan",
+    "scientificName": "Rudbeckia hirta",
+    "type": "Flower",
+    "description": "Cheerful native wildflower with bright yellow blooms",
+    "about": "Black-Eyed Susan is a cheerful native wildflower that brightens gardens throughout Washington. Known for its bright yellow petals and dark brown centers, it's a favorite among gardeners and pollinators alike. This hardy annual or short-lived perennial provides long-lasting blooms and requires minimal care.",
+    "height": "1-3 feet at maturity",
+    "spread": "1-2 feet wide",
+    "growthRate": "Fast, blooms in first year from seed",
+    "soilPreference": "Well-drained soil, tolerates various conditions",
+    "sunExposure": "Full sun to partial shade",
+    "waterNeeds": "Low to moderate, drought tolerant once established",
+    "bloomTime": "Mid summer to early fall (July-October)",
+    "nativeHabitat": "Eastern and central North America, naturalized in Pacific Northwest",
+    "landscapingUses": "Excellent for wildflower gardens, borders, and naturalized areas. Great for attracting pollinators and providing seasonal interest. Seeds provide winter food for birds.",
+    "flowerDescription": "Bright yellow daisy-like flowers with dark brown to black cone centers",
+    "foliageDescription": "Coarse, hairy leaves with rough texture",
+    "fruitDescription": "Seeds within the dried cone heads that persist through winter",
+    "growingConditions": "Black-Eyed Susans thrive in Woodinville's climate with minimal care. They prefer well-drained soil and can tolerate both full sun and partial shade. These hardy plants are drought-tolerant once established.",
+    "locationInfo": "Black-Eyed Susans can be found throughout Woodinville in residential gardens, wildflower areas, and public landscapes. Look for them in sunny locations where they provide summer color and attract pollinators.",
+    "wildlifeValue": "Black-Eyed Susans are highly attractive to butterflies, bees, and other beneficial pollinators. The flowers provide nectar throughout the summer, and the seed heads provide winter food for birds and small mammals.",
+    "seasons": {
+      "spring": {
+        "title": "Spring Characteristics",
+        "description": "Spring brings new growth to Black-Eyed Susan plants. Fresh green foliage emerges and the plants begin their growth cycle for the season.",
+        "characteristics": [
+          "Fresh green foliage emerges",
+          "New growth appears from crown",
+          "Plants begin active growth",
+          "Preparation for flowering"
+        ]
+      },
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer is peak bloom time for Black-Eyed Susans. The plants produce numerous bright yellow flowers that attract pollinators throughout the season.",
+        "characteristics": [
+          "Peak bloom period",
+          "Bright yellow flowers with dark centers",
+          "Maximum pollinator activity",
+          "Full foliage development"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics",
+        "description": "Fall brings continued blooming and the development of seed heads. The dried flower heads provide winter interest and food for birds.",
+        "characteristics": [
+          "Continued blooming into fall",
+          "Seed heads develop and dry",
+          "Foliage begins to decline",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter showcases the Black-Eyed Susan's persistent seed heads. The dried flower structures provide winter interest and food for birds.",
+        "characteristics": [
+          "Dried seed heads persist",
+          "Bare stems visible",
+          "Seeds provide bird food",
+          "Dormant until spring"
+        ]
+      }
+    },
+    "photography": {
+      "intro": "Black-Eyed Susans offer excellent photographic opportunities with their bright colors and wildlife interactions.",
+      "tips": [
+        "Pollinator Shots: Capture butterflies and bees on the flowers",
+        "Macro Photography: Focus on the intricate cone center details",
+        "Color Contrast: Highlight the bright yellow against dark centers",
+        "Seed Head Details: Photograph the interesting dried seed structures"
+      ],
+      "composition": [
+        "Include the distinctive dark center in close-ups",
+        "Capture the bright yellow petal structure",
+        "Use the vertical flower stems for interesting compositions",
+        "Look for wildlife interactions with the flowers"
+      ]
+    }
+  },
+  "salvia": {
+    "name": "Native Sage",
+    "scientificName": "Salvia species",
+    "type": "Flower",
+    "description": "Aromatic perennial herbs with colorful blooms and wildlife value",
+    "about": "Salvia is a diverse genus of aromatic perennial herbs that includes many species well-suited to Washington gardens. Known for their colorful flower spikes and fragrant foliage, salvias are favorites among gardeners and pollinators. These hardy perennials provide long-lasting blooms and require minimal care.",
+    "height": "1-4 feet depending on species",
+    "spread": "1-3 feet wide",
+    "growthRate": "Moderate to fast, reaches full size in 2-3 years",
+    "soilPreference": "Well-drained soil, tolerates various conditions",
+    "sunExposure": "Full sun to partial shade",
+    "waterNeeds": "Low to moderate, drought tolerant once established",
+    "bloomTime": "Late spring to fall (May-October)",
+    "nativeHabitat": "Various species native to different regions, many adapted to Pacific Northwest",
+    "landscapingUses": "Excellent for herb gardens, borders, and naturalized areas. Great for attracting pollinators and providing seasonal interest. Many species have culinary or medicinal uses.",
+    "flowerDescription": "Colorful flower spikes in various colors from blue to purple, red, or white",
+    "foliageDescription": "Aromatic, often textured leaves with various shapes and colors",
+    "fruitDescription": "Small nutlets within the dried flower spikes",
+    "growingConditions": "Salvias thrive in Woodinville's climate with minimal care. They prefer well-drained soil and can tolerate both full sun and partial shade. These hardy perennials are drought-tolerant once established.",
+    "locationInfo": "Salvias can be found throughout Woodinville in residential gardens, herb gardens, and public landscapes. Look for them in sunny locations where they provide seasonal color and attract pollinators.",
+    "wildlifeValue": "Salvias are highly attractive to butterflies, bees, and other beneficial pollinators. The flowers provide nectar throughout the growing season, and the aromatic foliage may repel some pest insects.",
+    "seasons": {
+      "spring": {
+        "title": "Spring Characteristics",
+        "description": "Spring brings new growth to salvia plants. Fresh foliage emerges and early varieties begin flowering.",
+        "characteristics": [
+          "Fresh foliage emerges",
+          "New growth appears on stems",
+          "Early varieties begin blooming",
+          "Aromatic foliage develops"
+        ]
+      },
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer is peak bloom time for most salvias. The plants produce numerous colorful flower spikes that attract pollinators throughout the season.",
+        "characteristics": [
+          "Peak bloom period",
+          "Colorful flower spikes",
+          "Maximum pollinator activity",
+          "Full foliage development"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics",
+        "description": "Fall brings continued blooming for many varieties and the development of seed heads. The aromatic foliage remains attractive.",
+        "characteristics": [
+          "Continued blooming for many varieties",
+          "Seed heads develop",
+          "Foliage remains attractive",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter showcases the salvia's structure and persistent seed heads. Many varieties maintain some foliage, and the dried flower spikes provide winter interest.",
+        "characteristics": [
+          "Dried flower spikes persist",
+          "Some varieties maintain foliage",
+          "Aromatic foliage may remain",
+          "Dormant until spring"
+        ]
+      }
+    },
+    "photography": {
+      "intro": "Salvias offer excellent photographic opportunities with their distinctive flower spikes and aromatic foliage.",
+      "tips": [
+        "Pollinator Shots: Capture butterflies and bees on the flowers",
+        "Macro Photography: Focus on individual flower details",
+        "Aromatic Foliage: Highlight the textured, fragrant leaves",
+        "Color Variety: Showcase the range of flower colors"
+      ],
+      "composition": [
+        "Include the distinctive flower spike structure",
+        "Capture the aromatic foliage texture",
+        "Use the vertical flower spikes for interesting compositions",
+        "Look for wildlife interactions with the flowers"
+      ]
+    }
   }
 }
