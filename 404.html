@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living in Woodinville</title>
+    <script>
+        // GitHub Pages SPA redirect
+        // This script takes the current page path and redirects to the main app
+        // which will handle the routing client-side
+        const path = window.location.pathname.replace('/livinginwoodenville', '');
+        window.location.replace('/livinginwoodenville/' + (path.startsWith('/') ? path.substring(1) : path) + window.location.search + window.location.hash);
+    </script>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 50px;">
+        <h2>Loading Living in Woodinville...</h2>
+        <p>If you're not redirected automatically, <a href="/livinginwoodenville/">click here</a>.</p>
+    </div>
+</body>
+</html>

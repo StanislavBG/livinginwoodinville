@@ -14,7 +14,8 @@ class NavigationLoader {
         }
 
         try {
-            const response = await fetch('/templates/navigation.html');
+            const basePath = window.CONFIG?.templates?.base || '/templates/';
+            const response = await fetch(`${basePath}navigation.html`);
             if (!response.ok) {
                 throw new Error(`Failed to load navigation: ${response.status}`);
             }

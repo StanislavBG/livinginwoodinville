@@ -44,3 +44,6 @@ pids
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Development server (not needed for GitHub Pages)
+# server.py - keeping it for local development

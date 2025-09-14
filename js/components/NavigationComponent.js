@@ -207,7 +207,8 @@ class NavigationComponent {
             if (pageSlug === 'usda-zone-8b') {
                 console.log('NavigationComponent: Loading USDA Zone page');
                 try {
-                    const response = await fetch('/pages/usda-zone-8b.html');
+                    const basePath = window.CONFIG?.pages?.base || '/pages/';
+                    const response = await fetch(`${basePath}usda-zone-8b.html`);
                     if (response.ok) {
                         html = await response.text();
                     }

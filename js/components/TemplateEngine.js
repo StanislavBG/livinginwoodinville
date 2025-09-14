@@ -10,7 +10,8 @@ class TemplateEngine {
 
     async loadTemplate(templateName) {
         try {
-            const response = await fetch(`/templates/${templateName}.html`);
+            const basePath = window.CONFIG?.templates?.base || '/templates/';
+            const response = await fetch(`${basePath}${templateName}.html`);
             if (!response.ok) {
                 throw new Error(`Failed to load template: ${response.status}`);
             }
@@ -25,7 +26,8 @@ class TemplateEngine {
 
     async loadData(dataName) {
         try {
-            const response = await fetch(`/data/${dataName}.json`);
+            const basePath = window.CONFIG?.data?.base || '/data/';
+            const response = await fetch(`${basePath}${dataName}.json`);
             if (!response.ok) {
                 throw new Error(`Failed to load data: ${response.status}`);
             }
