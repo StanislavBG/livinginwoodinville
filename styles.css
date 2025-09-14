@@ -955,6 +955,7 @@ body {
 .welcome-content {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 2rem;
     text-align: center;
 }
 
@@ -964,13 +965,36 @@ body {
     margin-bottom: 1rem;
 }
 
-.welcome-content p {
+.welcome-content > p {
     font-size: 1.2rem;
     color: var(--text-secondary);
     margin-bottom: 3rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.getting-started {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--secondary-color);
+    border-radius: var(--border-radius);
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.getting-started h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.getting-started p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
 }
 
 .feature-grid {

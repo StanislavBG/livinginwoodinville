@@ -18,8 +18,11 @@ class NavigationLoader {
             const basePath = window.CONFIG?.templates?.base || '/templates/';
             const url = `${basePath}navigation.html`;
             console.log('NavigationLoader: Loading navigation from:', url);
+            console.log('NavigationLoader: CONFIG object:', window.CONFIG);
+            console.log('NavigationLoader: Current location:', window.location.href);
             
             const response = await fetch(url);
+            console.log('NavigationLoader: Response status:', response.status);
             if (!response.ok) {
                 throw new Error(`Failed to load navigation: ${response.status} ${response.statusText}`);
             }
