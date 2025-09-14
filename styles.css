@@ -158,10 +158,22 @@ body {
         transform: translateX(-100%);
         width: 280px;
         z-index: 1002;
+        transition: transform 0.3s ease;
     }
     
     .side-nav.open {
         transform: translateX(0);
+    }
+    
+    .mobile-nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1001;
     }
     
     .mobile-nav-overlay.open {
@@ -169,7 +181,9 @@ body {
     }
     
     .mobile-nav-toggle {
-        display: block;
+        display: block !important;
+        position: relative;
+        z-index: 1003;
     }
     
     /* Mobile-specific tree navigation improvements */

@@ -1230,14 +1230,28 @@ class NavigationComponent {
         }
     }
 
-    closeMobileNavigation() {
+    openMobileNav() {
         const sideNav = document.getElementById('sideNav');
-        const overlay = document.getElementById('mobileNavOverlay');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        const toggle = document.getElementById('mobileNavToggle');
+        
+        if (sideNav) sideNav.classList.add('open');
+        if (mobileNavOverlay) mobileNavOverlay.classList.add('open');
+        if (toggle) toggle.classList.add('active');
+    }
+
+    closeMobileNav() {
+        const sideNav = document.getElementById('sideNav');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
         const toggle = document.getElementById('mobileNavToggle');
         
         if (sideNav) sideNav.classList.remove('open');
-        if (overlay) overlay.classList.remove('open');
+        if (mobileNavOverlay) mobileNavOverlay.classList.remove('open');
         if (toggle) toggle.classList.remove('active');
+    }
+
+    closeMobileNavigation() {
+        this.closeMobileNav();
     }
 
     setupSPALinks() {
