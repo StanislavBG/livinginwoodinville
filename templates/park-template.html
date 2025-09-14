@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{LOCATION_NAME}} - Living in Woodinville</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="site-title">Living in Woodinville</h1>
+            <div class="address-input-container">
+                <input type="text" id="addressInput" class="address-input" placeholder="Enter your address for distance calculations">
+                <button id="saveAddressBtn" class="address-save-btn">Save</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Navigation - Will be loaded dynamically -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-content">
+            <div class="loading">Loading navigation...</div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content-area">
+        <div class="park-page">
+        <!-- Park Header -->
+        <div class="park-header">
+            <div class="park-title-section">
+                <h1 class="park-title">{{PARK_NAME}}</h1>
+                
+                <!-- Park Address -->
+                <div class="park-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{PARK_ADDRESS}}, {{PARK_CITY_STATE}}</span>
+                </div>
+            </div>
+            
+            <!-- Park Information -->
+            <div class="info-cards">
+                <!-- Distance Information -->
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <span id="travelTime">n/a</span>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-car"></i>
+                    <span id="drivingDistance">n/a</span>
+                </div>
+                
+                <!-- Trail Length -->
+                <div class="info-card">
+                    <i class="fas fa-hiking"></i>
+                    <span>{{TRAIL_LENGTH_DISPLAY}}</span>
+                </div>
+                
+                <!-- Dogs Allowed -->
+                <div class="info-card" id="dogs-card" style="display: {{DOGS_DISPLAY}};">
+                    <i class="fas fa-dog"></i>
+                    <span>Dogs Welcome</span>
+                </div>
+                
+                <!-- Playground -->
+                <div class="info-card" id="playground-card" style="display: {{PLAYGROUND_DISPLAY}};">
+                    <i class="fas fa-child"></i>
+                    <span>Playground</span>
+                </div>
+                
+                <!-- Water Access -->
+                <div class="info-card" id="water-card" style="display: {{WATER_DISPLAY}};">
+                    <i class="fas fa-water"></i>
+                    <span>Water Access</span>
+                </div>
+                
+                <!-- Waterfall -->
+                <div class="info-card" id="waterfall-card" style="display: {{WATERFALL_DISPLAY}};">
+                    <i class="fas fa-tint"></i>
+                    <span>Waterfall</span>
+                </div>
+                
+                <!-- Lake -->
+                <div class="info-card" id="lake-card" style="display: {{LAKE_DISPLAY}};">
+                    <i class="fas fa-mountain"></i>
+                    <span>Lake Views</span>
+                </div>
+                
+                <!-- Always shown -->
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <span>Dawn to Dusk</span>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-parking"></i>
+                    <span>Parking Available</span>
+                </div>
+            </div>
+        </div>
+
+           <!-- Map Section -->
+           <div class="park-map-section">
+               <div class="map-container" id="mapDisplay">
+                   <!-- Map will be loaded here by MapComponent -->
+               </div>
+           </div>
+        </div>
+    </div>
+
+    <script src="../script-modular.js"></script>
+    <script>
+        // Park-specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏞️ Park template DOM loaded');
+            console.log('🏞️ Map initialization will be handled by NavigationComponent via Mapbox');
+        });
+    </script>
+</body>
+</html>

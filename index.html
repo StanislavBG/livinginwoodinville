@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living in Woodinville</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>Living in Woodinville</h1>
+            </div>
+            <div class="address-input-container">
+                <i class="fas fa-map-marker-alt address-icon"></i>
+                <input type="text" id="addressInput" class="address-input" placeholder="Enter address" value="8127 229th Place SE, Woodinville, WA 98072">
+                <button id="saveAddressBtn" class="address-save-btn">
+                    <i class="fas fa-save"></i>
+                    <span>Save</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <div class="loading-nav">Loading navigation...</div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content-area">
+        <div class="empty-state">
+            <h1>Welcome to Living in Woodinville</h1>
+            <p>Select a topic from the navigation menu to explore.</p>
+        </div>
+    </main>
+
+    <script>
+        // OLD INITIALIZATION CODE DISABLED - NOW USING APP/NAVIGATIONCOMPONENT ARCHITECTURE
+        // All functionality is now handled by the NavigationComponent via the App class
+        console.log('Index: Using new App architecture - NavigationComponent handles all initialization');
+        
+        // Set up default address only (basic functionality preserved)
+        document.addEventListener('DOMContentLoaded', function() {
+            const addressInput = document.getElementById('addressInput');
+            const saveBtn = document.getElementById('saveAddressBtn');
+            
+            if (addressInput && saveBtn && !localStorage.getItem('savedAddress')) {
+                const defaultAddress = "8127 229th Place SE, Woodinville, WA 98072";
+                addressInput.value = defaultAddress;
+                localStorage.setItem('savedAddress', defaultAddress);
+                console.log('Index: Set default address:', defaultAddress);
+            }
+        });
+    </script>
+    <!-- Load all components -->
+    <script src="js/components/NavigationLoader.js"></script>
+    <script src="js/components/TemplateEngine.js"></script>
+    <script src="js/components/PhotoWidget.js"></script>
+    <script src="js/components/NavigationComponent.js"></script>
+    <script src="js/App.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

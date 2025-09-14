@@ -1,0 +1,78 @@
+# Living in Woodinville - Cursor Rules
+
+## 🚨 CRITICAL: MAINTAIN SPA EXPERIENCE AT ALL COSTS
+
+### **MANDATORY SPA RULES - NEVER VIOLATE:**
+
+1. **NO FULL PAGE RELOADS**
+   - All navigation must use JavaScript `fetch()` API
+   - All links must have `e.preventDefault()` to stop default navigation
+   - Content must load dynamically into `.main-content` only
+   - Navigation sidebar must NEVER reload or change
+
+2. **NAVIGATION CONSISTENCY**
+   - ALL content pages MUST have identical navigation structure
+   - Navigation HTML must be EXACTLY the same across all pages
+   - Any navigation changes must be applied to ALL content pages simultaneously
+   - Use scripts to update all content pages when navigation changes
+
+3. **STATE PERSISTENCE**
+   - Navigation expanded/collapsed state MUST be saved in localStorage
+   - State must be restored when pages load
+   - Tree navigation state must persist across all page changes
+
+4. **URL MANAGEMENT**
+   - Use `window.history.pushState()` to update URLs
+   - Handle `popstate` events for back/forward buttons
+   - URLs must change without page reloads
+
+5. **CONTENT LOADING**
+   - Only `.main-content` div content should change
+   - Header, navigation, and layout must remain static
+   - Use `DOMParser` to extract content from fetched pages
+   - Show loading states during content fetching
+
+### **FORBIDDEN ACTIONS:**
+- ❌ Adding `href` attributes that cause page reloads
+- ❌ Creating separate HTML files with different navigation
+- ❌ Using `window.location.href` for navigation
+- ❌ Reloading the entire page for any reason
+- ❌ Making navigation changes to only one page
+- ❌ Removing SPA JavaScript functionality
+
+### **REQUIRED ACTIONS:**
+- ✅ Always use `fetch()` for content loading
+- ✅ Always prevent default link behavior
+- ✅ Always update all content pages when changing navigation
+- ✅ Always maintain navigation state persistence
+- ✅ Always test SPA functionality after any changes
+
+### **TESTING REQUIREMENTS:**
+Before any changes are considered complete:
+1. Verify no page reloads occur when clicking navigation
+2. Verify navigation state persists across page changes
+3. Verify back/forward buttons work correctly
+4. Verify all content pages have identical navigation
+5. Verify URL updates without page reloads
+
+### **EMERGENCY PROTOCOL:**
+If SPA functionality is broken:
+1. Immediately restore `script.js` SPA functions
+2. Update all content pages to have identical navigation
+3. Test all navigation links work without page reloads
+4. Verify state persistence is working
+
+## 🎯 PROJECT GOALS:
+- Maintain professional 3-level navigation structure
+- Ensure smooth, fast user experience
+- Keep navigation state consistent across all pages
+- Provide logical content organization
+- Never compromise on SPA experience
+
+## 📁 FILE STRUCTURE:
+- `index.html` - Main page with complete navigation
+- `content/*.html` - All content pages with IDENTICAL navigation
+- `script.js` - SPA functionality (DO NOT REMOVE)
+- `styles.css` - Navigation and layout styling
+
+**REMEMBER: The SPA experience is the CORE of this project. Everything else is secondary.**

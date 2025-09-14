@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PLANT_NAME}} - Living in Woodinville</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="site-title">Living in Woodinville</h1>
+            <div class="address-input-container">
+                <input type="text" id="addressInput" class="address-input" placeholder="Enter your address for distance calculations">
+                <button id="saveAddressBtn" class="address-save-btn">Save</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Navigation - Will be loaded dynamically -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-content">
+            <div class="loading">Loading navigation...</div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content-area">
+        <div class="tree-content">
+                <!-- Left Column - Photo Section -->
+                <div class="photo-column">
+                    <div class="photo-section">
+                        <!-- Photo Navigation - Moved to top -->
+                        <div class="photo-scroller-nav">
+                            <button id="prevBtn" class="scroller-nav-btn" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div class="photo-info">
+                                <div id="seasonIndicator" class="season-indicator">Spring</div>
+                                <div id="photoCounter" class="photo-counter">1 / 8</div>
+                            </div>
+                            <button id="nextBtn" class="scroller-nav-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="photo-container">
+                            <img id="treePhoto" src="images/{{PLANT_SLUG}}/{{PLANT_SLUG_UNDERSCORE}}__spring__01.jpeg" alt="{{PLANT_NAME}} in Spring" style="display: none;">
+                            <div class="image-placeholder">
+                                <i class="fas fa-seedling"></i>
+                                <h3>{{PLANT_NAME}}</h3>
+                                <p>Photos coming soon</p>
+                                <p class="placeholder-subtitle">Beautiful images of this {{PLANT_TYPE}} will be added here</p>
+                            </div>
+                        </div>
+
+                        <!-- Seasonal Navigation -->
+                        <div class="photo-nav">
+                            <button class="photo-nav-btn active" data-season="spring">
+                                <i class="fas fa-seedling"></i>
+                                <span>Spring</span>
+                            </button>
+                            <button class="photo-nav-btn" data-season="summer">
+                                <i class="fas fa-sun"></i>
+                                <span>Summer</span>
+                            </button>
+                            <button class="photo-nav-btn" data-season="fall">
+                                <i class="fas fa-leaf"></i>
+                                <span>Fall</span>
+                            </button>
+                            <button class="photo-nav-btn" data-season="winter">
+                                <i class="fas fa-snowflake"></i>
+                                <span>Winter</span>
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Right Column - Tree Information -->
+                <div class="tree-details">
+                        <!-- Plant Title -->
+                        <div class="tree-title-section">
+                            <h1>{{PLANT_NAME}}</h1>
+                            <p class="scientific-name">{{SCIENTIFIC_NAME}}</p>
+                        </div>
+                        
+                        <h2>{{PLANT_TYPE}} Information</h2>
+                        <div class="info-grid-two-column">
+                            <div class="info-item">
+                                <strong>Height:</strong> {{HEIGHT}}
+                            </div>
+                            <div class="info-item">
+                                <strong>Spread:</strong> {{SPREAD}}
+                            </div>
+                            <div class="info-item">
+                                <strong>Growth Rate:</strong> {{GROWTH_RATE}}
+                            </div>
+                            <div class="info-item">
+                                <strong>Soil Preference:</strong> {{SOIL_PREFERENCE}}
+                            </div>
+                            <div class="info-item">
+                                <strong>Sun Exposure:</strong> {{SUN_EXPOSURE}}
+                            </div>
+                            <div class="info-item">
+                                <strong>Water Needs:</strong> {{WATER_NEEDS}}
+                            </div>
+                        </div>
+
+                        <h3>Description</h3>
+                        <p>{{DESCRIPTION}}</p>
+
+                        <h3>About {{PLANT_NAME}}</h3>
+                        <p>{{ABOUT_PARAGRAPH}}</p>
+
+                        <h3>Native Habitat</h3>
+                        <p>{{NATIVE_HABITAT}}</p>
+
+                        <h3>Growing Conditions</h3>
+                        <p>{{GROWING_CONDITIONS}}</p>
+
+                        <h3>Location in Woodinville</h3>
+                        <p>{{LOCATION_INFO}}</p>
+
+                        <h3>Wildlife Value</h3>
+                        <p>{{WILDLIFE_VALUE}}</p>
+
+                        <h3>Landscaping Uses</h3>
+                        <p>{{LANDSCAPING_USES}}</p>
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // Season data for photo widget
+        const seasonData = {
+            summer: {
+                title: "Summer Characteristics", 
+                description: "{{SUMMER_DESCRIPTION}}",
+                characteristics: "{{SUMMER_CHARACTERISTICS}}"
+            },
+            fall: {
+                title: "Fall Characteristics",
+                description: "{{FALL_DESCRIPTION}}",
+                characteristics: "{{FALL_CHARACTERISTICS}}"
+            },
+            winter: {
+                title: "Winter Characteristics",
+                description: "{{WINTER_DESCRIPTION}}",
+                characteristics: "{{WINTER_CHARACTERISTICS}}"
+            }
+        };
+    </script>
+    </div>
+</body>
+</html>

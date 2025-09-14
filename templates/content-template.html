@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}} - Living in Woodinville</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="site-title">Living in Woodinville</h1>
+            <div class="address-input-container">
+                <input type="text" id="addressInput" class="address-input" placeholder="Enter your address for distance calculations">
+                <button id="saveAddressBtn" class="address-save-btn">Save</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Navigation - Will be loaded dynamically -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-content">
+            <div class="loading">Loading navigation...</div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {{PAGE_CONTENT}}
+    </main>
+
+    <script src="../script-modular.js"></script>
+    <script src="../templates/include-navigation.js"></script>
+    {{PAGE_SCRIPTS}}
+</body>
+</html>

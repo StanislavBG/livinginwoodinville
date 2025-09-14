@@ -1,0 +1,10 @@
+# Image Placeholders for Douglas Fir Seasonal Gallery
+
+This directory contains placeholder images for the Douglas Fir seasonal gallery:
+
+- douglas-fir-spring.jpg - Spring Douglas Fir with new growth
+- douglas-fir-summer.jpg - Summer Douglas Fir at peak lushness  
+- douglas-fir-fall.jpg - Fall Douglas Fir with mature cones
+- douglas-fir-winter.jpg - Winter Douglas Fir with snow
+
+The HTML includes fallback image placeholders that will display when images are not found.

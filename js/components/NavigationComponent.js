@@ -1,0 +1,1017 @@
+/**
+ * NavigationComponent
+ * Handles tree navigation, state management, and SPA routing
+ */
+class NavigationComponent {
+    constructor() {
+        this.isInitialized = false;
+        this.navigationLoader = new NavigationLoader();
+        this.templateEngine = new TemplateEngine();
+        // Initialize caching systems
+        this.geocodeCache = new Map();
+        this.directionsCache = new Map();
+        this.mapboxAccessToken = 'REDACTED';
+        // Don't call init() here - let App handle initialization timing
+    }
+
+    async init() {
+        console.log('NavigationComponent: Starting initialization...');
+        await this.loadNavigationIfNeeded();
+        this.setupTreeNavigation();
+        this.setupHistoryHandling();
+        this.restoreTreeState();
+        this.setupAddressInput();
+        this.isInitialized = true;
+        
+        console.log('NavigationComponent: Initialized successfully');
+    }
+
+    async loadNavigationIfNeeded() {
+        const existingNav = document.querySelector('nav.side-nav');
+        const hasRealNavigation = existingNav && !existingNav.querySelector('.loading-nav');
+        
+        if (!hasRealNavigation) {
+            console.log('NavigationComponent: No real navigation found, loading from central source');
+            const navContainer = document.querySelector('#sideNav') || document.querySelector('.side-nav');
+            if (navContainer) {
+                console.log('NavigationComponent: Injecting navigation into container');
+                await this.navigationLoader.injectNavigation(navContainer);
+                console.log('NavigationComponent: Navigation injected, waiting for DOM update');
+                // Wait for DOM to be fully updated before setting up event listeners
+                setTimeout(() => {
+                    console.log('NavigationComponent: Setting up event listeners after DOM update');
+                    this.setupEventListeners();
+                }, 100);
+            } else {
+                console.log('NavigationComponent: No navigation container found!');
+            }
+        } else {
+            console.log('NavigationComponent: Real navigation found, using existing navigation');
+            this.setupEventListeners();
+        }
+    }
+
+    setupEventListeners() {
+        // Mobile overlay toggle
+        const navOverlayToggle = document.getElementById('navOverlayToggle');
+        const sideNav = document.getElementById('sideNav');
+        
+        if (navOverlayToggle && sideNav) {
+            navOverlayToggle.addEventListener('click', () => {
+                sideNav.classList.toggle('open');
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.side-nav') && !e.target.closest('.nav-overlay-toggle')) {
+                sideNav.classList.remove('open');
+            }
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sideNav.classList.remove('open');
+            }
+        });
+    }
+
+    setupTreeNavigation() {
+        // Handle tree node clicks (both toggle and label)
+        const treeNodes = document.querySelectorAll('.tree-node');
+        console.log('NavigationComponent: Found', treeNodes.length, 'tree nodes');
+        
+        if (treeNodes.length === 0) {
+            console.warn('NavigationComponent: No tree nodes found! Navigation may not be loaded yet.');
+            return;
+        }
+        
+        treeNodes.forEach((node, index) => {
+            const treeItem = node.closest('.tree-item');
+            const children = treeItem?.querySelector('.tree-children');
+            const toggle = node.querySelector('.tree-toggle');
+            
+            if (children) {
+                // This node has children - make it expandable
+                console.log('NavigationComponent: Setting up expandable node', index);
+                
+                // Handle clicks on the entire tree node (both toggle and label)
+                node.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('NavigationComponent: Tree node clicked for expansion', index);
+                    this.toggleTreeNode(node, children);
+                });
+                
+                // Special handling for toggle button
+                if (toggle) {
+                    toggle.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('NavigationComponent: Toggle button clicked', index);
+                        this.toggleTreeNode(node, children);
+                    });
+                }
+            } else {
+                // This node might be a special node like USDA Zone
+                const nodeText = node.textContent?.trim();
+                if (nodeText === 'USDA Zone 8b') {
+                    console.log('NavigationComponent: Setting up USDA Zone node');
+                    node.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('NavigationComponent: USDA Zone clicked');
+                        this.navigateToPage('/usda-zone-8b');
+                    });
+                }
+            }
+        });
+
+        // Handle tree link clicks (leaf nodes)
+        const treeLinks = document.querySelectorAll('.tree-link');
+        console.log('NavigationComponent: Found', treeLinks.length, 'tree links');
+        treeLinks.forEach((link, index) => {
+            console.log('NavigationComponent: Setting up click handler for link', index, link.href);
+            link.addEventListener('click', (e) => {
+                console.log('NavigationComponent: Link click intercepted!', e.target.href);
+                e.preventDefault();
+                e.stopPropagation();
+                const href = link.getAttribute('href');
+                console.log('NavigationComponent: Link clicked:', href);
+                this.navigateToPage(href);
+            });
+        });
+    }
+
+    toggleTreeNode(node, children) {
+        const isExpanded = children.classList.contains('expanded') || children.style.display === 'block';
+        
+        console.log('NavigationComponent: Toggling tree node, currently expanded:', isExpanded);
+        
+        if (isExpanded) {
+            children.classList.remove('expanded');
+            children.style.display = 'none';
+            const chevron = node.querySelector('.tree-toggle i');
+            if (chevron) {
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        } else {
+            children.classList.add('expanded');
+            children.style.display = 'block';
+            const chevron = node.querySelector('.tree-toggle i');
+            if (chevron) {
+                chevron.style.transform = 'rotate(90deg)';
+            }
+        }
+        
+        // Save state
+        this.saveTreeState();
+    }
+
+    setupHistoryHandling() {
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', (e) => {
+            const path = window.location.pathname;
+            if (path === '/' || path === '') {
+                this.loadDefaultPage();
+            } else {
+                this.loadPageContent(path);
+            }
+        });
+
+        // Load page content if not on homepage
+        if (window.location.pathname !== '/' && window.location.pathname !== '') {
+            this.loadPageContent(window.location.pathname);
+        }
+    }
+
+    // loadDefaultPage() method removed - homepage should show index.html content instead
+
+    async loadPageContent(href) {
+        try {
+            console.log('NavigationComponent: Loading content from:', href);
+            
+            // Show loading state
+            const mainContent = document.querySelector('.main-content-area');
+            if (mainContent) {
+                mainContent.innerHTML = '<div class="loading">Loading...</div>';
+            }
+            
+            // Extract page slug from href (e.g., /content/douglas-fir.html -> douglas-fir)
+            const pageSlug = href.split('/').pop().replace('.html', '');
+            
+            let html;
+            
+            // Handle USDA Zone page
+            if (pageSlug === 'usda-zone-8b') {
+                console.log('NavigationComponent: Loading USDA Zone page');
+                try {
+                    const response = await fetch('/pages/usda-zone-8b.html');
+                    if (response.ok) {
+                        html = await response.text();
+                    }
+                } catch (error) {
+                    console.error('NavigationComponent: Error loading USDA page:', error);
+                }
+            }
+            
+            // If not USDA page or USDA failed, check park/plant pages
+            if (!html) {
+                // Check if this is a park/location page or a plant page
+                const isParkPage = await this.isParkPage(pageSlug);
+                
+                if (isParkPage) {
+                    // Use template engine to render park page
+                    console.log('NavigationComponent: Rendering park page:', pageSlug);
+                    html = await this.templateEngine.renderParkPage(pageSlug);
+                } else {
+                    // Use template engine to render plant page
+                    console.log('NavigationComponent: Rendering plant page:', pageSlug);
+                    html = await this.templateEngine.renderPlantPage(pageSlug);
+                }
+            }
+            
+            if (!html) {
+                throw new Error('Failed to load page content');
+            }
+            
+            // Parse the rendered HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Extract content - handle park, plant, and USDA page structures
+            let contentElement = null;
+            const isParkPage = await this.isParkPage(pageSlug);
+            
+            if (pageSlug === 'usda-zone-8b') {
+                // USDA pages use .main-content structure
+                contentElement = doc.querySelector('.main-content');
+            } else if (isParkPage) {
+                // Park pages use .park-page structure
+                contentElement = doc.querySelector('.park-page');
+            } else {
+                // Plant pages use .main-content or .main-content-area structure
+                contentElement = doc.querySelector('.main-content-area') || doc.querySelector('.main-content');
+            }
+            
+            if (contentElement && mainContent) {
+                console.log('NavigationComponent: Extracting content from:', contentElement.className || contentElement.tagName);
+                if (pageSlug === 'usda-zone-8b' || !isParkPage) {
+                    mainContent.innerHTML = contentElement.innerHTML;
+                } else {
+                    mainContent.innerHTML = contentElement.outerHTML;
+                }
+            } else {
+                console.warn('NavigationComponent: No suitable content element found');
+                console.warn('NavigationComponent: Looking for park-page:', !!doc.querySelector('.park-page'));
+                console.warn('NavigationComponent: Looking for main-content:', !!doc.querySelector('.main-content'));
+                console.warn('NavigationComponent: Looking for main-content-area:', !!doc.querySelector('.main-content-area'));
+            }
+            
+            // Update page title
+            const newTitle = doc.querySelector('.page-header h1, .tree-title-section h1, h1');
+            if (newTitle) {
+                document.title = `${newTitle.textContent} - Living in Woodinville`;
+            }
+            
+            // Update active navigation
+            setTimeout(() => this.updateActiveNavigation(href), 100);
+            
+            // Initialize photo widget if present (for plant pages)
+            if (!isParkPage) {
+                setTimeout(async () => {
+                    console.log('NavigationComponent: Initializing PhotoWidget for plant page');
+                    await this.initializePhotoWidget();
+                    // Set current content for PhotoWidget
+                    window.currentContent = pageSlug;
+                }, 100);
+            }
+            
+            // Initialize map component if present (for park pages)
+            if (isParkPage) {
+                setTimeout(async () => {
+                    console.log('NavigationComponent: Starting map initialization after DOM timeout...');
+                    await this.initializeMapComponent();
+                    
+                    // Validate park address after map initialization
+                    console.log('NavigationComponent: Validating park address...');
+                    await this.validateParkAddress();
+                }, 500);
+            }
+            
+            // Handle USDA page tree links
+            if (pageSlug === 'usda-zone-8b') {
+                setTimeout(() => {
+                    console.log('NavigationComponent: Setting up USDA tree links');
+                    this.setupUSDATreeLinks();
+                }, 100);
+            }
+            
+            console.log('NavigationComponent: Content loaded successfully');
+            
+        } catch (error) {
+            console.error('NavigationComponent: Error loading page content:', error);
+            const mainContent = document.querySelector('.main-content-area');
+            if (mainContent) {
+                mainContent.innerHTML = `
+                    <div class="error-message">
+                        <h2>Error Loading Page</h2>
+                        <p>Sorry, there was an error loading the requested page.</p>
+                        <a href="/" class="btn">Return to Home</a>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    async isParkPage(pageSlug) {
+        // Load parks data to check if this is a park page
+        try {
+            console.log('NavigationComponent: Checking if page is park:', pageSlug);
+            await this.templateEngine.loadData('parks');
+            const parksData = this.templateEngine.data.get('parks');
+            console.log('NavigationComponent: Parks data loaded:', !!parksData);
+            console.log('NavigationComponent: Available parks:', parksData ? Object.keys(parksData) : 'none');
+            const isPark = parksData && parksData.hasOwnProperty(pageSlug);
+            console.log('NavigationComponent: Is park page result:', isPark);
+            return isPark;
+        } catch (error) {
+            console.error('NavigationComponent: Error checking if page is park:', error);
+            return false;
+        }
+    }
+
+    async initializeMapComponent() {
+        console.log('NavigationComponent: Looking for map container...');
+        const mapContainer = document.getElementById('mapDisplay');
+        console.log('NavigationComponent: Map container found:', !!mapContainer);
+        
+        if (mapContainer) {
+            console.log('NavigationComponent: Initializing Mapbox map...');
+            console.log('NavigationComponent: Map container dimensions:', {
+                width: mapContainer.offsetWidth,
+                height: mapContainer.offsetHeight,
+                clientWidth: mapContainer.clientWidth,
+                clientHeight: mapContainer.clientHeight
+            });
+            
+            // Get current page slug to find park data
+            const currentPath = window.location.pathname;
+            const pageSlug = currentPath.split('/').pop().replace('.html', '');
+            console.log('NavigationComponent: Page slug:', pageSlug);
+            
+            // Check if this is a park page and get park data
+            const isParkPage = await this.isParkPage(pageSlug);
+            console.log('NavigationComponent: Is park page:', isParkPage);
+            
+            let parkData = null;
+            if (isParkPage) {
+                // Make sure parks data is loaded
+                await this.templateEngine.loadData('parks');
+                const parksData = this.templateEngine.data.get('parks');
+                console.log('NavigationComponent: Parks data:', parksData);
+                
+                if (parksData && parksData[pageSlug]) {
+                    parkData = parksData[pageSlug];
+                    console.log('NavigationComponent: Found park data:', parkData);
+                    console.log('NavigationComponent: Park coordinates:', parkData.latitude, parkData.longitude);
+                } else {
+                    console.warn('NavigationComponent: Park data not found for slug:', pageSlug);
+                }
+            } else {
+                console.log('NavigationComponent: Not a park page, using default location');
+            }
+            
+            // Initialize Mapbox directly
+            await this.initializeMapbox(mapContainer, parkData);
+        } else {
+            const availableIds = Array.from(document.querySelectorAll('[id]')).map(el => el.id);
+            console.warn('NavigationComponent: Map container not found! Available elements with IDs:', availableIds);
+            console.warn('NavigationComponent: Looking for mapDisplay in main content...');
+            
+            const mainContent = document.querySelector('.main-content-area');
+            console.warn('NavigationComponent: Main content found:', !!mainContent);
+            console.warn('NavigationComponent: Main content HTML preview:', 
+                mainContent ? mainContent.innerHTML.substring(0, 500) : 'none'
+            );
+            
+            // Look for any elements containing "map"
+            const mapElements = Array.from(document.querySelectorAll('[class*="map"], [id*="map"]'));
+            console.warn('NavigationComponent: Elements containing "map":', 
+                mapElements.map(el => ({ tag: el.tagName, id: el.id, class: el.className }))
+            );
+        }
+    }
+
+    async initializeMapbox(container, parkData) {
+        try {
+            console.log('NavigationComponent: Starting Mapbox initialization...');
+            console.log('NavigationComponent: Container:', container);
+            console.log('NavigationComponent: Park data:', parkData);
+            
+            // Load Mapbox CSS if not already loaded
+            if (!document.querySelector('link[href*="mapbox-gl"]')) {
+                console.log('NavigationComponent: Loading Mapbox CSS...');
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css';
+                document.head.appendChild(link);
+            } else {
+                console.log('NavigationComponent: Mapbox CSS already loaded');
+            }
+
+            // Load Mapbox JS if not already loaded
+            if (!window.mapboxgl) {
+                console.log('NavigationComponent: Loading Mapbox JS...');
+                const script = document.createElement('script');
+                script.src = 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js';
+                await new Promise((resolve, reject) => {
+                    script.onload = () => {
+                        console.log('NavigationComponent: Mapbox JS loaded successfully');
+                        resolve();
+                    };
+                    script.onerror = (error) => {
+                        console.error('NavigationComponent: Error loading Mapbox JS:', error);
+                        reject(error);
+                    };
+                    document.head.appendChild(script);
+                });
+            } else {
+                console.log('NavigationComponent: Mapbox JS already available');
+            }
+
+            // Set access token
+            console.log('NavigationComponent: Setting Mapbox access token...');
+            mapboxgl.accessToken = 'REDACTED';
+            
+            // Determine center coordinates
+            let centerLat = 47.7544;  // Default: Woodinville
+            let centerLng = -122.1556;
+            let zoomLevel = 13;
+            
+            if (parkData && parkData.latitude && parkData.longitude) {
+                centerLat = parseFloat(parkData.latitude);
+                centerLng = parseFloat(parkData.longitude);
+                zoomLevel = 15;
+                console.log('NavigationComponent: Using park coordinates:', centerLat, centerLng);
+            } else {
+                console.log('NavigationComponent: Using default Woodinville coordinates');
+            }
+
+            // Clear container and create map element (let CSS handle sizing)
+            console.log('NavigationComponent: Creating map element...');
+            container.innerHTML = '<div id="map" style="height: 100%; width: 100%; background: #f0f0f0;"></div>';
+            
+            // Wait a moment for DOM update
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            const mapElement = document.getElementById('map');
+            console.log('NavigationComponent: Map element created:', !!mapElement);
+            console.log('NavigationComponent: Map element dimensions:', {
+                width: mapElement?.offsetWidth,
+                height: mapElement?.offsetHeight
+            });
+            
+            // Create map
+            console.log('NavigationComponent: Creating Mapbox map...');
+            const map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/outdoors-v12',
+                center: [centerLng, centerLat],
+                zoom: zoomLevel
+            });
+
+            console.log('NavigationComponent: Map object created, waiting for load...');
+            
+            // Wait for map to load before adding markers and routes
+            map.on('load', () => {
+                console.log('NavigationComponent: Map loaded successfully!');
+                this.initializeMapContent(map, parkData);
+            });
+
+            map.on('error', (error) => {
+                console.error('NavigationComponent: Map error:', error);
+            });
+
+            this.currentMap = map;
+            console.log('NavigationComponent: Mapbox map initialization completed');
+            
+        } catch (error) {
+            console.error('NavigationComponent: Error initializing Mapbox:', error);
+            console.error('NavigationComponent: Error stack:', error.stack);
+        }
+    }
+
+    async geocodeAddress(address) {
+        try {
+            if (!address || address.trim() === '') return null;
+            
+            const cleanAddress = address.trim();
+            const cacheKey = `geocode:${cleanAddress.toLowerCase()}`;
+            
+            // Check cache first
+            if (this.geocodeCache.has(cacheKey)) {
+                console.log('NavigationComponent: Using cached geocoding result for:', cleanAddress);
+                return this.geocodeCache.get(cacheKey);
+            }
+            
+            console.log('NavigationComponent: Geocoding with Mapbox:', cleanAddress);
+            
+            // Use Mapbox Geocoding API
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(cleanAddress)}.json?access_token=${this.mapboxAccessToken}&country=US&proximity=-122.1556,47.7544&limit=1`;
+            
+            const response = await fetch(url);
+            
+            if (response.ok) {
+                const data = await response.json();
+                if (data.features && data.features.length > 0) {
+                    const feature = data.features[0];
+                    const coords = {
+                        lat: feature.center[1],
+                        lng: feature.center[0]
+                    };
+                    
+                    // Cache the result
+                    this.geocodeCache.set(cacheKey, coords);
+                    console.log('NavigationComponent: Mapbox geocoding successful:', coords);
+                    return coords;
+                }
+            }
+            
+            // Fallback for Woodinville addresses
+            if (cleanAddress.toLowerCase().includes('woodinville')) {
+                const fallbackCoords = { lat: 47.7544, lng: -122.1556 };
+                this.geocodeCache.set(cacheKey, fallbackCoords);
+                return fallbackCoords;
+            }
+            
+            // Cache null results to avoid repeated failed requests
+            this.geocodeCache.set(cacheKey, null);
+            return null;
+        } catch (error) {
+            console.error('NavigationComponent: Mapbox geocoding error:', error);
+            return null;
+        }
+    }
+
+    async getDirectionsAndDistance(fromCoords, toCoords) {
+        try {
+            const cacheKey = `directions:${fromCoords.lng},${fromCoords.lat}:${toCoords.lng},${toCoords.lat}`;
+            
+            // Check cache first
+            if (this.directionsCache.has(cacheKey)) {
+                console.log('NavigationComponent: Using cached directions result');
+                return this.directionsCache.get(cacheKey);
+            }
+            
+            console.log('NavigationComponent: Getting directions from Mapbox:', fromCoords, 'to', toCoords);
+            
+            // Use Mapbox Directions API
+            const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${fromCoords.lng},${fromCoords.lat};${toCoords.lng},${toCoords.lat}?access_token=${this.mapboxAccessToken}&geometries=geojson&overview=simplified`;
+            
+            const response = await fetch(url);
+            
+            if (response.ok) {
+                const data = await response.json();
+                if (data.routes && data.routes.length > 0) {
+                    const route = data.routes[0];
+                    const result = {
+                        distance: route.distance / 1609.34, // Convert meters to miles
+                        duration: route.duration / 60, // Convert seconds to minutes
+                        geometry: route.geometry
+                    };
+                    
+                    // Cache the result
+                    this.directionsCache.set(cacheKey, result);
+                    console.log('NavigationComponent: Mapbox directions successful:', result);
+                    return result;
+                }
+            }
+            
+            // Fallback to straight-line distance
+            const straightDistance = this.calculateStraightDistance(
+                fromCoords.lat, fromCoords.lng, toCoords.lat, toCoords.lng
+            );
+            const fallbackResult = {
+                distance: straightDistance * 1.3, // Estimate driving distance
+                duration: (straightDistance * 1.3 / 30) * 60, // Estimate at 30mph
+                geometry: null
+            };
+            
+            this.directionsCache.set(cacheKey, fallbackResult);
+            return fallbackResult;
+        } catch (error) {
+            console.error('NavigationComponent: Mapbox directions error:', error);
+            
+            // Fallback to straight-line calculation
+            const straightDistance = this.calculateStraightDistance(
+                fromCoords.lat, fromCoords.lng, toCoords.lat, toCoords.lng
+            );
+            return {
+                distance: straightDistance * 1.3,
+                duration: (straightDistance * 1.3 / 30) * 60,
+                geometry: null
+            };
+        }
+    }
+
+    async initializeMapContent(map, parkData) {
+        const markers = [];
+        let userCoords = null;
+        let parkCoords = null;
+        
+        // Add park marker if park data is available
+        if (parkData && parkData.latitude && parkData.longitude) {
+            const markerLat = parseFloat(parkData.latitude);
+            const markerLng = parseFloat(parkData.longitude);
+            parkCoords = { lat: markerLat, lng: markerLng };
+            
+            console.log('NavigationComponent: Adding park marker at:', markerLat, markerLng);
+            
+            // Create custom marker element for park
+            const parkMarkerEl = document.createElement('div');
+            parkMarkerEl.className = 'park-marker';
+            parkMarkerEl.innerHTML = '🏞️';
+            parkMarkerEl.style.fontSize = '24px';
+            parkMarkerEl.style.cursor = 'pointer';
+            
+            const parkMarker = new mapboxgl.Marker(parkMarkerEl)
+                .setLngLat([markerLng, markerLat])
+                .setPopup(new mapboxgl.Popup({ offset: 25 })
+                    .setHTML(`<h4>${parkData.name}</h4><p>${parkData.address}</p>`))
+                .addTo(map);
+            
+            markers.push(parkMarker);
+        }
+
+        // Add user address marker and plot route if available
+        const savedAddress = localStorage.getItem('savedAddress');
+        if (savedAddress) {
+            console.log('NavigationComponent: Adding user marker for:', savedAddress);
+            userCoords = await this.geocodeAddress(savedAddress);
+            
+            if (userCoords) {
+                const userMarkerEl = document.createElement('div');
+                userMarkerEl.className = 'user-marker';
+                userMarkerEl.innerHTML = '🏠';
+                userMarkerEl.style.fontSize = '24px';
+                userMarkerEl.style.cursor = 'pointer';
+                
+                const userMarker = new mapboxgl.Marker(userMarkerEl)
+                    .setLngLat([userCoords.lng, userCoords.lat])
+                    .setPopup(new mapboxgl.Popup({ offset: 25 })
+                        .setHTML(`<h4>Your Location</h4><p>${savedAddress}</p>`))
+                    .addTo(map);
+                
+                markers.push(userMarker);
+            }
+        }
+
+        // Plot route and center map if we have both locations
+        if (userCoords && parkCoords) {
+            console.log('NavigationComponent: Plotting route between user and park');
+            const directions = await this.getDirectionsAndDistance(userCoords, parkCoords);
+            
+            if (directions && directions.geometry) {
+                // Add route to the map
+                this.addRouteToMap(map, directions.geometry);
+                
+                // Center map on the route
+                this.centerMapOnRoute(map, userCoords, parkCoords);
+                
+                // Update distance display
+                console.log('NavigationComponent: Distance calculation result:', directions);
+                this.updateDistanceDisplay(directions.duration, directions.distance);
+            } else if (directions) {
+                // No route geometry but we have distance - just fit both markers
+                console.log('NavigationComponent: No route geometry, fitting markers');
+                this.fitMarkersInView(map, [userCoords, parkCoords]);
+                this.updateDistanceDisplay(directions.duration, directions.distance);
+            }
+        } else if (markers.length > 0) {
+            // Just fit the available markers
+            const coords = [];
+            if (userCoords) coords.push(userCoords);
+            if (parkCoords) coords.push(parkCoords);
+            if (coords.length > 0) {
+                this.fitMarkersInView(map, coords);
+            }
+        }
+    }
+
+    addRouteToMap(map, geometry) {
+        console.log('NavigationComponent: Adding route to map');
+        
+        // Remove existing route if it exists
+        if (map.getSource('route')) {
+            map.removeLayer('route');
+            map.removeSource('route');
+        }
+        
+        // Add route source and layer
+        map.addSource('route', {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                properties: {},
+                geometry: geometry
+            }
+        });
+        
+        map.addLayer({
+            id: 'route',
+            type: 'line',
+            source: 'route',
+            layout: {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            paint: {
+                'line-color': '#3887be',
+                'line-width': 5,
+                'line-opacity': 0.75
+            }
+        });
+    }
+
+    centerMapOnRoute(map, userCoords, parkCoords) {
+        console.log('NavigationComponent: Centering map on route');
+        
+        // Create bounds that include both points
+        const bounds = new mapboxgl.LngLatBounds();
+        bounds.extend([userCoords.lng, userCoords.lat]);
+        bounds.extend([parkCoords.lng, parkCoords.lat]);
+        
+        // Fit the map to the bounds with padding
+        map.fitBounds(bounds, {
+            padding: { top: 50, bottom: 50, left: 50, right: 50 },
+            maxZoom: 15
+        });
+    }
+
+    fitMarkersInView(map, coordinates) {
+        console.log('NavigationComponent: Fitting markers in view');
+        
+        if (coordinates.length === 1) {
+            // Single marker - just center on it
+            const coord = coordinates[0];
+            map.setCenter([coord.lng, coord.lat]);
+            map.setZoom(13);
+        } else if (coordinates.length > 1) {
+            // Multiple markers - fit bounds
+            const bounds = new mapboxgl.LngLatBounds();
+            coordinates.forEach(coord => {
+                bounds.extend([coord.lng, coord.lat]);
+            });
+            
+            map.fitBounds(bounds, {
+                padding: { top: 50, bottom: 50, left: 50, right: 50 },
+                maxZoom: 15
+            });
+        }
+    }
+
+    updateDistanceDisplay(timeInMinutes, distanceInMiles) {
+        console.log('NavigationComponent: Updating distance display:', timeInMinutes, 'min,', distanceInMiles, 'mi');
+        
+        const travelTimeEl = document.getElementById('travelTime');
+        const drivingDistanceEl = document.getElementById('drivingDistance');
+
+        console.log('NavigationComponent: Travel time element found:', !!travelTimeEl);
+        console.log('NavigationComponent: Driving distance element found:', !!drivingDistanceEl);
+        
+        if (!travelTimeEl || !drivingDistanceEl) {
+            console.error('NavigationComponent: Distance elements not found in DOM');
+            return;
+        }
+
+        if (travelTimeEl) {
+            if (timeInMinutes === null || timeInMinutes === undefined || isNaN(timeInMinutes)) {
+                travelTimeEl.textContent = 'n/a';
+            } else {
+                const hours = Math.floor(timeInMinutes / 60);
+                const mins = Math.round(timeInMinutes % 60);
+                
+                let timeText;
+                if (hours > 0) {
+                    timeText = `${hours}h ${mins > 0 ? mins + 'm' : ''}`;
+                } else {
+                    timeText = `${mins} min`;
+                }
+                
+                travelTimeEl.textContent = timeText;
+                console.log('NavigationComponent: Travel time updated to:', timeText);
+            }
+        }
+
+        if (drivingDistanceEl) {
+            if (distanceInMiles === null || distanceInMiles === undefined || isNaN(distanceInMiles)) {
+                drivingDistanceEl.textContent = 'n/a';
+            } else {
+                const distanceText = `${distanceInMiles.toFixed(1)} mi`;
+                drivingDistanceEl.textContent = distanceText;
+                console.log('NavigationComponent: Driving distance updated to:', distanceText);
+            }
+        }
+    }
+
+    async initializePhotoWidget() {
+        const photoContainer = document.querySelector('.photo-section, .photo-column');
+        if (photoContainer && !photoContainer.photoWidget) {
+            console.log('NavigationComponent: Initializing PhotoWidget...');
+            photoContainer.photoWidget = new PhotoWidget(photoContainer);
+            
+            // Wait for the PhotoWidget to initialize
+            await new Promise(resolve => {
+                const checkInit = () => {
+                    if (photoContainer.photoWidget.isInitialized) {
+                        console.log('NavigationComponent: PhotoWidget initialized successfully');
+                        resolve();
+                    } else {
+                        setTimeout(checkInit, 100);
+                    }
+                };
+                checkInit();
+            });
+        }
+    }
+
+    navigateToPage(href) {
+        console.log('NavigationComponent: Navigating to:', href);
+        this.loadPageContent(href);
+        window.history.pushState({}, '', href);
+    }
+
+    updateActiveNavigation(href) {
+        // Remove active class from all links
+        document.querySelectorAll('.tree-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Add active class to current link
+        const activeLink = document.querySelector(`.tree-link[href="${href}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+            this.expandNavigationToLink(activeLink);
+        }
+    }
+
+    expandNavigationToLink(activeLink) {
+        let currentElement = activeLink.parentElement;
+        
+        while (currentElement && currentElement.classList.contains('tree-item')) {
+            const children = currentElement.querySelector('.tree-children');
+            if (children) {
+                children.style.display = 'block';
+                const toggle = currentElement.querySelector('.tree-toggle i');
+                if (toggle) {
+                    toggle.style.transform = 'rotate(90deg)';
+                }
+            }
+            currentElement = currentElement.parentElement.closest('.tree-item');
+        }
+    }
+
+    setupAddressInput() {
+        const addressInput = document.getElementById('addressInput');
+        const saveBtn = document.getElementById('saveAddressBtn');
+        
+        if (addressInput && saveBtn) {
+            // Set the default address and mark as saved from the start
+            const defaultAddress = "8127 229th Place SE, Woodinville, WA 98072";
+            addressInput.value = defaultAddress;
+            localStorage.setItem('savedAddress', defaultAddress);
+            
+            // Apply saved styling immediately
+            addressInput.classList.add('saved');
+            saveBtn.classList.add('change-mode');
+            saveBtn.innerHTML = '<i class="fas fa-check"></i><span>Saved</span>';
+            
+            console.log('NavigationComponent: Address set to default and saved:', defaultAddress);
+            
+            // Save address on button click
+            saveBtn.addEventListener('click', () => {
+                const address = addressInput.value.trim();
+                if (address) {
+                    localStorage.setItem('savedAddress', address);
+                    console.log('NavigationComponent: Address saved:', address);
+                }
+            });
+        }
+    }
+
+    saveTreeState() {
+        const expandedNodes = [];
+        document.querySelectorAll('.tree-children[style*="block"]').forEach(children => {
+            const node = children.parentElement.querySelector('.tree-node');
+            if (node) {
+                const label = node.querySelector('.tree-label');
+                if (label) {
+                    expandedNodes.push(label.textContent);
+                }
+            }
+        });
+        
+        localStorage.setItem('treeNavigationState', JSON.stringify(expandedNodes));
+    }
+
+    setupUSDATreeLinks() {
+        console.log('NavigationComponent: Setting up USDA tree links');
+        const treeLinks = document.querySelectorAll('.tree-link[data-plant]');
+        console.log('NavigationComponent: Found', treeLinks.length, 'USDA tree links');
+        
+        treeLinks.forEach((link, index) => {
+            const plantSlug = link.getAttribute('data-plant');
+            console.log('NavigationComponent: Setting up USDA tree link', index, 'for plant:', plantSlug);
+            
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (plantSlug) {
+                    console.log('NavigationComponent: USDA tree link clicked:', plantSlug);
+                    this.navigateToPage('/content/' + plantSlug + '.html');
+                }
+            });
+        });
+    }
+
+    restoreTreeState() {
+        const savedState = localStorage.getItem('treeNavigationState');
+        if (savedState) {
+            try {
+                const expandedNodes = JSON.parse(savedState);
+                expandedNodes.forEach(nodeLabel => {
+                    const node = Array.from(document.querySelectorAll('.tree-label'))
+                        .find(label => label.textContent === nodeLabel)
+                        ?.closest('.tree-node');
+                    
+                    if (node) {
+                        const children = node.parentElement.querySelector('.tree-children');
+                        if (children) {
+                            children.style.display = 'block';
+                            const chevron = node.querySelector('.tree-toggle i');
+                            if (chevron) {
+                                chevron.style.transform = 'rotate(90deg)';
+                            }
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error('NavigationComponent: Error restoring tree state:', e);
+            }
+        }
+    }
+
+    async validateParkAddress() {
+        console.log('NavigationComponent: Validating park address...');
+        
+        // Get the park address element
+        const parkAddressElement = document.querySelector('.park-address');
+        if (!parkAddressElement) {
+            console.log('NavigationComponent: No park address element found');
+            return;
+        }
+        
+        // Get the address text
+        const addressSpan = parkAddressElement.querySelector('span');
+        if (!addressSpan) {
+            console.log('NavigationComponent: No address text found');
+            return;
+        }
+        
+        const address = addressSpan.textContent.trim();
+        console.log('NavigationComponent: Validating address:', address);
+        
+        // Use the existing geocoding function to validate the address
+        const geocodeResult = await this.geocodeAddress(address);
+        
+        if (!geocodeResult) {
+            // Address could not be verified - add invalid class
+            console.log('NavigationComponent: Address not verifiable, adding invalid styling:', address);
+            parkAddressElement.classList.add('invalid');
+            
+            // Optional: Add a tooltip or warning message
+            const icon = parkAddressElement.querySelector('i');
+            if (icon) {
+                icon.title = 'Address could not be verified by Mapbox - please check for accuracy';
+            }
+        } else {
+            // Address is valid - ensure no invalid class
+            console.log('NavigationComponent: Address verified successfully:', address);
+            parkAddressElement.classList.remove('invalid');
+        }
+    }
+
+    destroy() {
+        this.isInitialized = false;
+        console.log('NavigationComponent: Destroyed');
+    }
+}
+
+// Export for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = NavigationComponent;
+} else {
+    window.NavigationComponent = NavigationComponent;
+}

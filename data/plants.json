@@ -1,0 +1,370 @@
+{
+  "douglas-fir": {
+    "name": "Douglas Fir",
+    "scientificName": "Pseudotsuga menziesii",
+    "type": "Tree",
+    "description": "The tallest conifer in the pine family and iconic tree of the Pacific Northwest",
+    "about": "The Douglas Fir is the tallest tree in the Pinaceae family and one of the most iconic trees of the Pacific Northwest. Native to western North America, it's abundant throughout Woodinville and can reach heights of 200-300 feet in ideal conditions. The tree is easily recognizable by its distinctive cones with three-pronged bracts and flat, soft needles.",
+    "height": "200-300 feet (tallest in Pinaceae family)",
+    "spread": "20-30 feet wide",
+    "growthRate": "Fast growing, 2-3 feet per year",
+    "soilPreference": "Well-drained, acidic to neutral soils",
+    "sunExposure": "Full sun to partial shade",
+    "waterNeeds": "Moderate, drought tolerant once established",
+    "nativeHabitat": "Western North America, from British Columbia to California, sea level to 5,000 feet elevation",
+    "landscapingUses": "Excellent as specimen tree, windbreak, or privacy screen. Provides year-round beauty and wildlife habitat. Widely used in forestry and landscaping.",
+    "leavesDescription": "Flat, soft needles 1-3.5 cm long with two white stomatal bands underneath",
+    "barkDescription": "Thick, deeply furrowed, reddish-brown to gray-brown with resin blisters",
+    "fruitDescription": "Distinctive cones 5-11 cm long with three-pronged bracts extending from cone scales",
+    "growingConditions": "Douglas Firs thrive in the moist, temperate climate of Woodinville. They prefer well-drained soils and can tolerate both full sun and partial shade. These trees are well-adapted to the Pacific Northwest's wet winters and dry summers.",
+    "locationInfo": "Douglas Firs are found throughout Woodinville in both natural forested areas and residential landscapes. Look for them in local parks, along hiking trails, and in many neighborhood yards where they provide year-round beauty and privacy.",
+    "wildlifeValue": "These trees provide important habitat for birds, squirrels, and other wildlife. Their seeds are a food source for many animals, and their dense foliage offers excellent shelter and nesting sites. The tree supports a diverse ecosystem.",
+    "seasons": {
+      "spring": {
+        "title": "Spring Characteristics",
+        "description": "In spring, Douglas Firs show new growth with bright green tips on their branches. The new needles are softer and lighter in color, creating a fresh, vibrant appearance.",
+        "characteristics": [
+          "Bright green new growth tips",
+          "Softer, lighter colored new needles", 
+          "Active growth period begins",
+          "Contrast between old and new foliage"
+        ]
+      },
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer brings the Douglas Fir to its full glory. The needles are at their deepest green, and the tree provides excellent shade and cooling.",
+        "characteristics": [
+          "Deepest green foliage",
+          "Maximum shade and cooling",
+          "Cones begin developing",
+          "Peak lushness and vibrancy"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics", 
+        "description": "While Douglas Firs don't change color like deciduous trees, fall brings subtle changes. The cones mature and begin to open, releasing their seeds.",
+        "characteristics": [
+          "Mature cones open and release seeds",
+          "Natural needle drop in interior",
+          "Subtle color variations in older needles",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter showcases the Douglas Fir's resilience and beauty. The tree maintains its green color against the gray winter sky, and when snow falls, it creates a stunning contrast.",
+        "characteristics": [
+          "Maintains green color year-round",
+          "Stunning contrast with snow",
+          "Thick bark provides winter protection",
+          "Dense foliage offers shelter from elements"
+        ]
+      }
+    },
+    "photography": {
+      "intro": "Capturing the beauty of Douglas Firs throughout the seasons requires understanding their unique characteristics and the best times to photograph them.",
+      "tips": [
+        "Golden Hour: Early morning or late afternoon light creates warm, dramatic shadows",
+        "Overcast Days: Soft, even lighting brings out the texture of bark and needles",
+        "After Rain: Water droplets on needles create beautiful macro opportunities",
+        "Winter Snow: Snow-covered branches create stunning contrast"
+      ],
+      "composition": [
+        "Include the distinctive bark texture in close-ups",
+        "Capture the tree's height by shooting upward",
+        "Look for interesting cone formations",
+        "Use the tree as a backdrop for seasonal elements"
+      ]
+    }
+  },
+  "bigleaf-maple": {
+    "name": "Bigleaf Maple",
+    "scientificName": "Acer macrophyllum", 
+    "type": "Tree",
+    "description": "The majestic broadleaf tree with the largest leaves of any maple",
+    "about": "The Bigleaf Maple is one of the most distinctive trees in the Pacific Northwest, known for its enormous leaves that can reach up to 12 inches across. This deciduous tree provides spectacular fall color and is a favorite among wildlife and photographers. It's the largest maple species in North America.",
+    "height": "50-100 feet at maturity",
+    "spread": "30-50 feet wide",
+    "growthRate": "Moderate, 1-2 feet per year",
+    "soilPreference": "Moist, well-drained soils, tolerates various conditions",
+    "sunExposure": "Full sun to partial shade",
+    "waterNeeds": "Moderate, prefers consistent moisture",
+    "nativeHabitat": "Pacific Northwest coastal and mountain forests, from sea level to 5,000 feet elevation",
+    "landscapingUses": "Excellent as specimen tree, provides shade and fall color. Great for wildlife habitat and erosion control.",
+    "leavesDescription": "Large, lobed leaves up to 12 inches across, bright green in summer, golden yellow in fall",
+    "barkDescription": "Grayish-brown, smooth when young, becoming furrowed with age",
+    "fruitDescription": "Paired winged seeds (samaras) that spin as they fall",
+    "growingConditions": "Bigleaf Maples prefer moist, well-drained soils and are commonly found in riparian areas and mixed forests. They tolerate shade well and are often found growing alongside conifers.",
+    "locationInfo": "Look for Bigleaf Maples throughout Woodinville's forested areas, particularly along streams and in mixed forests. They're common in local parks and natural areas.",
+    "wildlifeValue": "These trees provide excellent habitat for birds and small mammals. Their large leaves offer shelter, and the seeds are eaten by various wildlife species. The tree supports a diverse ecosystem.",
+    "seasons": {
+      "spring": {
+        "title": "Spring Characteristics",
+        "description": "Spring brings fresh green leaves to Bigleaf Maples. The large, lobed leaves emerge bright green and create a lush canopy that provides excellent shade.",
+        "characteristics": [
+          "Bright green new leaves",
+          "Large, lobed leaf structure", 
+          "Lush canopy development",
+          "Excellent shade provider"
+        ]
+      },
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer is when Bigleaf Maples are at their most lush. The large leaves create dense shade and the tree provides excellent cooling for the forest floor.",
+        "characteristics": [
+          "Dense green canopy",
+          "Maximum shade and cooling",
+          "Large leaves at full size",
+          "Excellent wildlife habitat"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics",
+        "description": "Fall brings the Bigleaf Maple's most spectacular display. The large leaves turn brilliant golden yellow, creating stunning fall color that lights up the forest.",
+        "characteristics": [
+          "Brilliant golden yellow leaves",
+          "Spectacular fall color display",
+          "Leaves begin to drop",
+          "Seeds disperse on wind"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter reveals the Bigleaf Maple's branching structure. The tree is bare but still provides habitat for wildlife and interesting photographic opportunities.",
+        "characteristics": [
+          "Bare branches visible",
+          "Interesting branching structure",
+          "Seeds may remain on branches",
+          "Wildlife habitat continues"
+        ]
+      }
+    },
+    "photography": {
+      "intro": "Bigleaf Maples offer excellent photographic opportunities throughout the year.",
+      "tips": [
+        "Fall Color: Capture the brilliant golden leaves",
+        "Leaf Details: Focus on the large, distinctive leaves",
+        "Branching Pattern: Winter reveals interesting structure",
+        "Seasonal Changes: Document the dramatic transformations"
+      ],
+      "composition": [
+        "Emphasize the large leaf size in close-ups",
+        "Include the distinctive lobed leaf shape",
+        "Capture the golden fall color against green conifers",
+        "Look for interesting light patterns through the leaves"
+      ]
+    }
+  },
+  "western-red-cedar": {
+    "name": "Western Red Cedar",
+    "scientificName": "Thuja plicata",
+    "type": "Tree",
+    "description": "The iconic evergreen of Pacific Northwest forests",
+    "about": "Western Red Cedar is one of the most important trees in Pacific Northwest forests and is abundant throughout Woodinville. This magnificent evergreen can reach heights of 200-230 feet and is easily recognizable by its distinctive scale-like foliage and aromatic wood.",
+    "height": "200-230 feet (tallest in Thuja genus)",
+    "spread": "15-25 feet wide",
+    "growthRate": "Fast growing, 2-3 feet per year",
+    "soilPreference": "Moist, well-drained soils, tolerates wet conditions",
+    "sunExposure": "Full sun to partial shade",
+    "waterNeeds": "High, prefers consistent moisture",
+    "nativeHabitat": "Pacific Northwest forests, from sea level to 3,000 feet elevation",
+    "landscapingUses": "Excellent as specimen tree, windbreak, or privacy screen. Provides year-round beauty and wildlife habitat. Widely used in forestry and landscaping.",
+    "leavesDescription": "Scale-like foliage in flattened sprays, dark green above, lighter below",
+    "barkDescription": "Reddish-brown, fibrous, and stringy with age",
+    "fruitDescription": "Small, woody cones 8-12 mm long with 4-6 scales",
+    "growingConditions": "Western Red Cedars thrive in the moist, temperate climate of Woodinville. They prefer well-drained soils and can tolerate both full sun and partial shade. These trees are well-adapted to the Pacific Northwest's wet winters and dry summers.",
+    "locationInfo": "Western Red Cedars are found throughout Woodinville in both natural forested areas and residential landscapes. Look for them in local parks, along hiking trails, and in many neighborhood yards where they provide year-round beauty and privacy.",
+    "wildlifeValue": "These trees provide important habitat for birds, squirrels, and other wildlife. Their dense foliage offers excellent shelter and nesting sites. The tree supports a diverse ecosystem and is particularly important for forest birds.",
+    "seasons": {
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer brings the Western Red Cedar to its full glory. The scale-like foliage is at its deepest green, and the tree provides excellent shade and cooling.",
+        "characteristics": [
+          "Deepest green foliage",
+          "Maximum shade and cooling",
+          "Cones begin developing",
+          "Peak lushness and vibrancy"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics", 
+        "description": "While Western Red Cedars don't change color like deciduous trees, fall brings subtle changes. The cones mature and the tree prepares for winter.",
+        "characteristics": [
+          "Mature cones open and release seeds",
+          "Natural needle drop in interior",
+          "Subtle color variations in older foliage",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter showcases the Western Red Cedar's resilience and beauty. The tree maintains its green color against the gray winter sky, and when snow falls, it creates a stunning contrast.",
+        "characteristics": [
+          "Maintains green color year-round",
+          "Stunning contrast with snow",
+          "Thick bark provides winter protection",
+          "Dense foliage offers shelter from elements"
+        ]
+      }
+    }
+  },
+  "pacific-madrone": {
+    "name": "Pacific Madrone",
+    "scientificName": "Arbutus menziesii",
+    "type": "Tree",
+    "description": "The distinctive broadleaf evergreen of Pacific Northwest",
+    "about": "Pacific Madrone is a unique broadleaf evergreen tree native to the Pacific Northwest and is found throughout Woodinville. This distinctive tree can reach heights of 50-100 feet and is easily recognizable by its smooth, reddish bark that peels away in thin sheets.",
+    "height": "50-100 feet at maturity",
+    "spread": "20-40 feet wide",
+    "growthRate": "Slow to moderate, 1-2 feet per year",
+    "soilPreference": "Well-drained, acidic soils, tolerates poor soils",
+    "sunExposure": "Full sun to partial shade",
+    "waterNeeds": "Low to moderate, drought tolerant once established",
+    "nativeHabitat": "Pacific Northwest coastal areas, from sea level to 3,000 feet elevation",
+    "landscapingUses": "Excellent as specimen tree, provides year-round interest. Great for wildlife habitat and erosion control.",
+    "leavesDescription": "Leathery, dark green leaves 3-6 inches long, oval to elliptical",
+    "barkDescription": "Smooth, reddish-brown bark that peels in thin sheets",
+    "fruitDescription": "Small, round, orange-red berries 1/4 inch in diameter",
+    "growingConditions": "Pacific Madrones thrive in the temperate climate of Woodinville. They prefer well-drained soils and can tolerate both full sun and partial shade. These trees are well-adapted to the Pacific Northwest's wet winters and dry summers.",
+    "locationInfo": "Pacific Madrones are found throughout Woodinville in both natural forested areas and residential landscapes. Look for them in local parks, along hiking trails, and in many neighborhood yards where they provide year-round beauty and interest.",
+    "wildlifeValue": "These trees provide important habitat for birds and other wildlife. Their berries are a food source for many animals, and their dense foliage offers excellent shelter and nesting sites.",
+    "seasons": {
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer brings the Pacific Madrone to its full glory. The leathery leaves are at their deepest green, and the tree provides excellent shade and cooling.",
+        "characteristics": [
+          "Deepest green foliage",
+          "Maximum shade and cooling",
+          "Berries begin developing",
+          "Peak lushness and vibrancy"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics", 
+        "description": "Fall brings the Pacific Madrone's most spectacular display. The berries ripen to bright orange-red, creating a stunning contrast with the dark green leaves.",
+        "characteristics": [
+          "Bright orange-red berries ripen",
+          "Stunning color contrast",
+          "Berries provide food for wildlife",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter showcases the Pacific Madrone's unique beauty. The tree maintains its green leaves against the gray winter sky, and the smooth, reddish bark creates a striking contrast.",
+        "characteristics": [
+          "Maintains green leaves year-round",
+          "Striking reddish bark contrast",
+          "Smooth bark provides winter interest",
+          "Dense foliage offers shelter from elements"
+        ]
+      }
+    }
+  },
+  "vine-maple": {
+    "name": "Vine Maple",
+    "scientificName": "Acer circinatum",
+    "type": "Tree",
+    "description": "The graceful understory maple of Pacific Northwest forests",
+    "about": "Vine Maple is a small, graceful deciduous tree native to the Pacific Northwest and is common throughout Woodinville. This distinctive tree typically grows 15-25 feet tall and is easily recognizable by its multi-stemmed growth habit and brilliant fall colors.",
+    "height": "15-25 feet at maturity",
+    "spread": "15-20 feet wide",
+    "growthRate": "Moderate, 1-2 feet per year",
+    "soilPreference": "Moist, well-drained soils, tolerates various conditions",
+    "sunExposure": "Partial shade to full sun",
+    "waterNeeds": "Moderate, prefers consistent moisture",
+    "nativeHabitat": "Pacific Northwest forests, from sea level to 4,000 feet elevation",
+    "landscapingUses": "Excellent as specimen tree, understory planting, or naturalizing. Great for wildlife habitat and erosion control.",
+    "leavesDescription": "Round, lobed leaves 3-6 inches across, bright green in summer",
+    "barkDescription": "Smooth, grayish-brown bark when young, becoming slightly furrowed with age",
+    "fruitDescription": "Paired winged seeds (samaras) that spin as they fall",
+    "growingConditions": "Vine Maples thrive in the temperate climate of Woodinville. They prefer moist, well-drained soils and can tolerate both partial shade and full sun. These trees are well-adapted to the Pacific Northwest's wet winters and dry summers.",
+    "locationInfo": "Vine Maples are found throughout Woodinville in both natural forested areas and residential landscapes. Look for them in local parks, along hiking trails, and in many neighborhood yards where they provide year-round beauty and interest.",
+    "wildlifeValue": "These trees provide important habitat for birds and other wildlife. Their seeds are eaten by various animals, and their dense foliage offers excellent shelter and nesting sites.",
+    "seasons": {
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer brings the Vine Maple to its full glory. The leaves are at their deepest green, and the tree provides excellent shade and cooling.",
+        "characteristics": [
+          "Deepest green foliage",
+          "Maximum shade and cooling",
+          "Seeds begin developing",
+          "Peak lushness and vibrancy"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics", 
+        "description": "Fall brings the Vine Maple's most spectacular display. The leaves turn brilliant shades of yellow, orange, and red, creating a stunning autumn show.",
+        "characteristics": [
+          "Brilliant yellow, orange, and red leaves",
+          "Spectacular fall color display",
+          "Leaves begin to drop",
+          "Seeds disperse on wind"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter reveals the Vine Maple's graceful branching structure. The tree is bare but still provides habitat for wildlife and interesting photographic opportunities.",
+        "characteristics": [
+          "Bare branches visible",
+          "Graceful branching structure",
+          "Seeds may remain on branches",
+          "Wildlife habitat continues"
+        ]
+      }
+    }
+  },
+  "red-alder": {
+    "name": "Red Alder",
+    "scientificName": "Alnus rubra",
+    "type": "Tree",
+    "description": "The fast-growing pioneer tree of Pacific Northwest",
+    "about": "Red Alder is a fast-growing deciduous tree native to the Pacific Northwest and is common throughout Woodinville. This important pioneer species can reach heights of 50-80 feet and is easily recognizable by its smooth, grayish bark and distinctive catkins.",
+    "height": "50-80 feet at maturity",
+    "spread": "20-30 feet wide",
+    "growthRate": "Fast growing, 2-4 feet per year",
+    "soilPreference": "Moist, well-drained soils, tolerates wet conditions",
+    "sunExposure": "Full sun to partial shade",
+    "waterNeeds": "High, prefers consistent moisture",
+    "nativeHabitat": "Pacific Northwest forests, from sea level to 3,000 feet elevation",
+    "landscapingUses": "Excellent for reforestation, erosion control, and wildlife habitat. Great for naturalizing and riparian areas.",
+    "leavesDescription": "Oval to elliptical leaves 3-6 inches long, dark green above, lighter below",
+    "barkDescription": "Smooth, grayish-white bark with horizontal lenticels",
+    "fruitDescription": "Small, woody cones 1-2 cm long, persistent through winter",
+    "growingConditions": "Red Alders thrive in the moist, temperate climate of Woodinville. They prefer moist, well-drained soils and can tolerate both full sun and partial shade. These trees are well-adapted to the Pacific Northwest's wet winters and dry summers.",
+    "locationInfo": "Red Alders are found throughout Woodinville in both natural forested areas and residential landscapes. Look for them in local parks, along hiking trails, and in many neighborhood yards where they provide year-round beauty and interest.",
+    "wildlifeValue": "These trees provide important habitat for birds and other wildlife. Their seeds are eaten by various animals, and their dense foliage offers excellent shelter and nesting sites. They also fix nitrogen in the soil, benefiting other plants.",
+    "seasons": {
+      "summer": {
+        "title": "Summer Characteristics",
+        "description": "Summer brings the Red Alder to its full glory. The leaves are at their deepest green, and the tree provides excellent shade and cooling.",
+        "characteristics": [
+          "Deepest green foliage",
+          "Maximum shade and cooling",
+          "Cones begin developing",
+          "Peak lushness and vibrancy"
+        ]
+      },
+      "fall": {
+        "title": "Fall Characteristics", 
+        "description": "Fall brings subtle changes to the Red Alder. The leaves turn yellow before dropping, and the cones mature.",
+        "characteristics": [
+          "Leaves turn yellow before dropping",
+          "Cones mature and open",
+          "Seeds disperse on wind",
+          "Preparation for winter dormancy"
+        ]
+      },
+      "winter": {
+        "title": "Winter Characteristics",
+        "description": "Winter reveals the Red Alder's distinctive branching structure. The tree is bare but the persistent cones and smooth bark provide winter interest.",
+        "characteristics": [
+          "Bare branches visible",
+          "Distinctive branching structure",
+          "Persistent cones provide winter interest",
+          "Smooth bark stands out in winter"
+        ]
+      }
+    }
+  }
+}

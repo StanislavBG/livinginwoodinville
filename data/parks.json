@@ -1,0 +1,131 @@
+{
+  "sammamish-river-trail": {
+    "name": "Sammamish River Trail",
+    "address": "17301 131st Ave NE",
+    "cityState": "Woodinville, WA 98072",
+    "latitude": 47.753218,
+    "longitude": -122.166055,
+    "description": "A beautiful 10.1-mile paved path that runs along the Sammamish River from Bothell to Marymoor Park in Redmond. This popular trail offers stunning views of the river, surrounding wetlands, and forested areas.",
+    "features": "Scenic river views, wildlife viewing, picnic areas, restrooms, parking",
+    "trailLength": "10.1 miles",
+    "trailLengthDisplay": "10.1 mi trail",
+    "surface": "Paved trail suitable for walking, running, cycling, and skating",
+    "accessPoints": [
+      "Wilmot Gateway Park: 17301 131st Ave NE, Woodinville, WA 98072",
+      "Blyth Park: 16950 W Riverside Dr, Bothell, WA 98011",
+      "Marymoor Park: 6046 W Lake Sammamish Pkwy NE, Redmond, WA 98052"
+    ],
+    "bestTimes": "Year-round, with peak season from spring through fall. Early morning and evening offer the best wildlife viewing opportunities.",
+    "hasPlayground": false,
+    "waterAccess": true,
+    "dogsAllowed": true,
+    "hasWaterfall": false,
+    "hasLake": false
+  },
+  "tolt-macdonald-park": {
+    "name": "Tolt-MacDonald Park",
+    "address": "31020 NE 40th St",
+    "cityState": "Carnation, WA 98014",
+    "latitude": 47.64449,
+    "longitude": -121.92302,
+    "description": "A beautiful park featuring the iconic suspension bridge over the Snoqualmie River, offering stunning views and recreational opportunities.",
+    "features": "Suspension bridge, river views, hiking trails, picnic areas, camping",
+    "trailLength": "3.2 miles",
+    "trailLengthDisplay": "3.2 mi trails",
+    "surface": "Mixed surfaces including paved and natural trails",
+    "accessPoints": [
+      "Main entrance: 31020 NE 40th St, Carnation, WA 98014"
+    ],
+    "bestTimes": "Year-round, with beautiful fall colors and spring wildflowers",
+    "hasPlayground": true,
+    "waterAccess": true,
+    "dogsAllowed": true,
+    "hasWaterfall": false,
+    "hasLake": false
+  },
+  "st-edward-state-park": {
+    "name": "Saint Edward State Park",
+    "address": "14445 Juanita Dr NE",
+    "cityState": "Kenmore, WA 98028",
+    "latitude": 47.73342,
+    "longitude": -122.25665,
+    "description": "A historic state park featuring the former Saint Edward Seminary, beautiful forest trails, and stunning views of Lake Washington.",
+    "features": "Historic seminary building, forest trails, lake views, picnic areas",
+    "trailLength": "4.5 miles",
+    "trailLengthDisplay": "4.5 mi trails",
+    "surface": "Natural forest trails with some paved sections",
+    "accessPoints": [
+      "Main entrance: 14445 Juanita Dr NE, Kenmore, WA 98028"
+    ],
+    "bestTimes": "Year-round, with beautiful seasonal changes",
+    "hasPlayground": false,
+    "waterAccess": true,
+    "dogsAllowed": true,
+    "hasWaterfall": false,
+    "hasLake": true
+  },
+  "snoqualmie-falls": {
+    "name": "Snoqualmie Falls",
+    "address": "6200 Fish Hatchery Rd SE",
+    "cityState": "Snoqualmie, WA 98065",
+    "latitude": 47.5427,
+    "longitude": -121.8377,
+    "description": "One of Washington's most popular attractions, featuring a spectacular 268-foot waterfall. The viewing area offers breathtaking views and there are several trails for hiking around the area.",
+    "features": "268-foot waterfall, observation deck, gift shop, hiking trails, historic lodge",
+    "trailLength": "1.5 miles",
+    "trailLengthDisplay": "1.5 mi trails",
+    "surface": "Paved viewing areas with natural hiking trails",
+    "accessPoints": [
+      "Main parking and observation deck: 6200 Fish Hatchery Rd SE, Snoqualmie, WA 98065",
+      "Lower trail access: Tokul Road"
+    ],
+    "bestTimes": "Year-round, but spring and winter offer the most dramatic water flow. Fall provides beautiful foliage.",
+    "hasPlayground": false,
+    "waterAccess": false,
+    "dogsAllowed": true,
+    "hasWaterfall": true,
+    "hasLake": false
+  },
+  "rattlesnake-lake": {
+    "name": "Rattlesnake Lake",
+    "address": "Rattlesnake Lake Rd",
+    "cityState": "North Bend, WA 98045",
+    "latitude": 47.4354,
+    "longitude": -121.7733,
+    "description": "A beautiful alpine lake surrounded by towering mountains and old-growth forest. Popular for easy family hikes, picnicking, and stunning mountain reflections in the water.",
+    "features": "Alpine lake, mountain views, picnic areas, restrooms, easy hiking trails, old-growth forest",
+    "trailLength": "2.0 miles",
+    "trailLengthDisplay": "2.0 mi trail",
+    "surface": "Easy gravel trail around the lake",
+    "accessPoints": [
+      "Main parking area: End of Rattlesnake Lake Road, North Bend, WA 98045"
+    ],
+    "bestTimes": "Year-round, with summer and fall being most popular. Spring offers wildflowers, winter can be muddy.",
+    "hasPlayground": false,
+    "waterAccess": true,
+    "dogsAllowed": true,
+    "hasWaterfall": false,
+    "hasLake": true
+  },
+  "twin-falls": {
+    "name": "Twin Falls Trail",
+    "address": "SE 159th St",
+    "cityState": "North Bend, WA 98045",
+    "latitude": 47.4872,
+    "longitude": -121.7003,
+    "description": "A moderate hike leading to spectacular twin waterfalls cascading down rocky cliffs. The trail follows the South Fork Snoqualmie River through beautiful old-growth forest.",
+    "features": "Twin waterfalls, river views, old-growth forest, wooden bridges, rocky pools",
+    "trailLength": "2.6 miles",
+    "trailLengthDisplay": "2.6 mi trail",
+    "surface": "Natural forest trail with some rocky sections and wooden bridges",
+    "accessPoints": [
+      "Trailhead parking: End of SE 159th Street, North Bend, WA 98045"
+    ],
+    "bestTimes": "Best from late spring through fall. Winter and early spring can be muddy and icy.",
+    "hasPlayground": false,
+    "waterAccess": true,
+    "dogsAllowed": true,
+    "hasWaterfall": true,
+    "hasLake": false
+  }
+}
