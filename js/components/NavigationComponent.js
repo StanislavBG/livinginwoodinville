@@ -107,7 +107,8 @@ class NavigationComponent {
                 const href = spaLinks.getAttribute('href');
                 console.log('NavigationComponent: Global SPA link clicked:', href);
                 
-                if (href === '/' || href === '') {
+                // Handle home link specially - check for both relative and absolute home URLs
+                if (href === '/' || href === '' || href.includes('livinginwoodinville/') || href.endsWith('livinginwoodinville/')) {
                     this.navigateToHome();
                 } else {
                     this.navigateToPage(href);
@@ -1354,8 +1355,8 @@ class NavigationComponent {
             return;
         }
         
-        // Handle home link specially
-        if (href === '/' || href === '') {
+        // Handle home link specially - check for both relative and absolute home URLs
+        if (href === '/' || href === '' || href.includes('livinginwoodinville/') || href.endsWith('livinginwoodinville/')) {
             console.log('NavigationComponent: Navigating to home via SPA link');
             this.navigateToHome();
         } else {
