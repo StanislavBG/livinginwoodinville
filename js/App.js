@@ -73,8 +73,8 @@ class App {
                 };
                 checkInit();
             });
-        } else if (!photoContainer) {
-            console.warn('App: No photo container found');
+        } else {
+            console.log('App: No photo container found - skipping PhotoWidget initialization');
         }
     }
 
