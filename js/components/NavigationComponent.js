@@ -396,6 +396,9 @@ class NavigationComponent {
                 }, 100);
             }
             
+            // Setup SPA links for dynamically loaded content (like home page)
+            this.setupSPALinks();
+            
             // Initialize map component if present (for park pages)
             if (isParkPage) {
                 setTimeout(async () => {
@@ -1125,6 +1128,33 @@ class NavigationComponent {
             // Address is valid - ensure no invalid class
             console.log('NavigationComponent: Address verified successfully:', address);
             parkAddressElement.classList.remove('invalid');
+        }
+    }
+
+    closeMobileNavigation() {
+        const sideNav = document.getElementById('sideNav');
+        const overlay = document.getElementById('mobileNavOverlay');
+        const toggle = document.getElementById('mobileNavToggle');
+        
+        if (sideNav) sideNav.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+        if (toggle) toggle.classList.remove('active');
+    }
+
+    setupSPALinks() {
+        // Handle SPA links in dynamically loaded content
+        const mainContent = document.querySelector('.main-content-area');
+        if (mainContent) {
+            const spaLinks = mainContent.querySelectorAll('.spa-link');
+            spaLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const href = link.getAttribute('href');
+                    console.log('NavigationComponent: SPA link clicked:', href);
+                    this.navigateToPage(href);
+                });
+            });
         }
     }
 

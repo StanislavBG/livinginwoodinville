@@ -1327,6 +1327,51 @@ body {
     color: var(--white);
 }
 
+/* SPA Link Styles */
+.spa-link {
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.spa-link:hover {
+    text-decoration: none;
+}
+
+/* Ensure SPA links work properly in feature cards */
+.feature-link.spa-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    margin-top: auto;
+}
+
+.feature-link.spa-link:hover {
+    color: var(--primary-dark);
+    transform: translateX(5px);
+}
+
+/* Ensure SPA links work properly in quick links */
+.quick-link.spa-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.quick-link.spa-link:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+}
+
 /* Loading and Error States */
 .loading {
     text-align: center;
