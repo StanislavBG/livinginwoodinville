@@ -1297,11 +1297,21 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 .page-content .feature-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    text-decoration: none;
+    color: inherit;
+}
+
+.page-content .feature-card:visited {
+    color: inherit;
+    text-decoration: none;
 }
 
 .feature-icon {
@@ -1346,6 +1356,22 @@ body {
 }
 
 .feature-link:hover {
+    color: var(--primary-dark);
+    transform: translateX(5px);
+}
+
+/* Feature link as div inside clickable card */
+.feature-card .feature-link {
+    color: var(--primary-color);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    margin-top: auto;
+}
+
+.feature-card:hover .feature-link {
     color: var(--primary-dark);
     transform: translateX(5px);
 }
